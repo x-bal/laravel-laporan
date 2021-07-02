@@ -23,7 +23,7 @@
             <div class="form mb-3">
                 <form action="" method="get">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-4">
                             <select name="jenis" id="jenis" class="form-control">
                                 <option disabled selected>-- Pilih Jenis --</option>
                                 @foreach($jenis as $jns)
@@ -31,8 +31,9 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah">Input Kehadiran</button>
                         </div>
                     </div>
                 </form>
@@ -91,6 +92,65 @@
                 </tbody>
             </table>
             @endif
+        </div>
+    </div>
+</div>
+
+
+<div id="tambah" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Masukan Data</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('kehadiran.store') }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <label for="user">Pilih User</label>
+                        <select name="user" class="form-control" required>
+                            <option disabled selected>-- Pilih User --</option>
+                            @foreach($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jenis">Pilih Izin</label>
+                        <select name="jenis" class="form-control" required>
+                            <option disabled selected>-- Pilih Izin --</option>
+                            @foreach($jenis as $jns)
+                            <option value="{{ $jns->id }}">{{ $jns->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dari">Dari</label>
+                        <input type="date" name="dari" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sampai">Sampai</label>
+                        <input type="date" name="sampai" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <textarea name="keterangan" id="keterangan" rows="3" class="form-control"></textarea>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

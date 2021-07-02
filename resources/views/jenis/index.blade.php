@@ -40,7 +40,6 @@
                         <td>{{ $jns->nominal }}</td>
                         <td class="text-center">
                             <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit{{ $jns->id }}"><i class="fas fa-edit"></i></a>
-                            <a href="" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin ?')"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
 

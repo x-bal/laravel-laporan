@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jenis;
 use App\Kehadiran;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -12,14 +13,14 @@ class KehadiranController extends Controller
     public function index()
     {
         $jenis = Jenis::get();
-        // $kehadiran = Kehadiran::latest()->get();
+        $users = User::get();
 
         if (request('jenis')) {
             $kehadiran = Kehadiran::where('jeni_id', request('jenis'))->latest()->get();
         } else {
             $kehadiran = null;
         }
-        return view('kehadiran.index', compact('kehadiran', 'jenis'));
+        return view('kehadiran.index', compact('kehadiran', 'jenis', 'users'));
     }
 
     public function create()
@@ -30,9 +31,9 @@ class KehadiranController extends Controller
 
     public function store(Request $request)
     {
-        if (request('jenis') == 5) {
+        if (auth()->user()->level == 'A') {
             Kehadiran::create([
-                'user_id' => auth()->user()->id,
+                'user_id' => request('user'),
                 'jeni_id' => request('jenis'),
                 'tanggal' => Carbon::now(),
                 'dari' => request('dari'),
@@ -40,27 +41,40 @@ class KehadiranController extends Controller
                 'keterangan' => request('keterangan'),
             ]);
 
-            return redirect()->back()->with('masuk', 'Lembur berhasil dilakukan');
-        } elseif (request('jenis')) {
-            Kehadiran::create([
-                'user_id' => auth()->user()->id,
-                'jeni_id' => request('jenis'),
-                'tanggal' => Carbon::now(),
-                'dari' => request('dari'),
-                'sampai' => request('sampai'),
-                'keterangan' => request('keterangan'),
-            ]);
-
-            return redirect()->back()->with('masuk', 'Izin berhasil dilakukan');
+            return redirect()->back()->with('masuk', 'Kehadiran berhasil dilakukan');
         } else {
-            Kehadiran::create([
-                'user_id' => auth()->user()->id,
-                'jeni_id' => 1,
-                'tanggal' => Carbon::now(),
-                'keterangan' => 'Hadir'
-            ]);
+            if (request('jenis') == 5) {
+                Kehadiran::create([
+                    'user_id' => auth()->user()->id,
+                    'jeni_id' => request('jenis'),
+                    'tanggal' => Carbon::now(),
+                    'dari' => request('dari'),
+                    'sampai' => request('sampai'),
+                    'keterangan' => request('keterangan'),
+                ]);
 
-            return redirect()->back()->with('masuk', 'Kehadiran berhasil diajukan');
+                return redirect()->back()->with('masuk', 'Lembur berhasil dilakukan');
+            } elseif (request('jenis')) {
+                Kehadiran::create([
+                    'user_id' => auth()->user()->id,
+                    'jeni_id' => request('jenis'),
+                    'tanggal' => Carbon::now(),
+                    'dari' => request('dari'),
+                    'sampai' => request('sampai'),
+                    'keterangan' => request('keterangan'),
+                ]);
+
+                return redirect()->back()->with('masuk', 'Izin berhasil dilakukan');
+            } else {
+                Kehadiran::create([
+                    'user_id' => auth()->user()->id,
+                    'jeni_id' => 1,
+                    'tanggal' => Carbon::now(),
+                    'keterangan' => 'Hadir'
+                ]);
+
+                return redirect()->back()->with('masuk', 'Kehadiran berhasil diajukan');
+            }
         }
     }
 

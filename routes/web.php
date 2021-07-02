@@ -112,6 +112,8 @@ Route::resource('/setting', 'JenisController');
 
 // Route Gaji
 Route::get('/gaji/laporan', 'GajiController@laporan')->name('gaji.laporan');
+Route::get('/gaji/laporan/karyawan/{tanggal}', 'GajiController@laporanKaryawan')->name('gaji.laporanKaryawan');
+Route::get('/gaji/slip', 'GajiController@slip')->name('gaji.slip');
 Route::resource('/gaji', 'GajiController');
 
 Route::get('change-password', 'ChangePasswordController@index');

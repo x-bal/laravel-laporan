@@ -123,10 +123,15 @@
           <i class="fas fa-fw fa-cog"></i>
           <span>Kehadiran</span></a>
       </li>
-      <li class="nav-item {{ (request()->is('error-map*')) ? 'active' : '' }}">
+      <li class="nav-item {{ (request()->is('lembur*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('lembur') }}">
           <i class="fas fa-fw fa-cog"></i>
           <span>Lembur</span></a>
+      </li>
+      <li class="nav-item {{ (request()->is('gaji*')) ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('gaji.slip') }}">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Slip Gaji</span></a>
       </li>
       @endif
 
