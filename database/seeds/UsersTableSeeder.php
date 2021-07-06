@@ -1,5 +1,6 @@
 <?php
 
+use App\Karyawan;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -12,12 +13,17 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name'    => 'Admin',
-            'jk'    => 'L',
+        $user = User::create([
             'email'    => 'admin@gmail.com',
             'password'    => bcrypt('admin'),
             'level' => 'A'
+        ]);
+
+        Karyawan::create([
+            'name' => "Admin",
+            'jk' => 'L',
+            'nohp' => '08965778674',
+            'user_id' => $user->id
         ]);
     }
 }

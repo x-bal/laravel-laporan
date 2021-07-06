@@ -16,9 +16,9 @@ class UserController extends Controller
 
     public function index()
     {
-        
-        $user = User::where('level','A')->get();
-        return view('admin/index',compact('user'));
+
+        $user = User::with('karyawan')->where('level', 'A')->get();
+        return view('admin/index', compact('user'));
     }
 
     public function store(Request $request)
@@ -29,59 +29,59 @@ class UserController extends Controller
         ]);
 
         User::create([
-            'name'=> $request->name,
+            'name' => $request->name,
             'email' => $request->email,
-            'password'=>bcrypt($request->password),
-            'level'=>'A',
-            'jk'=>$request->jk,
+            'password' => bcrypt($request->password),
+            'level' => 'A',
+            'jk' => $request->jk,
         ]);
-        
-        return redirect()->back()->with('masuk','Data Berhasil Di Input');
+
+        return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
     }
 
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin/edit',compact('user'));
+        return view('admin/edit', compact('user'));
     }
 
     public function update(Request $request)
     {
         $user = User::find($request->id);
 
-        if($request->email != $user->email){
+        if ($request->email != $user->email) {
             $request->validate([
                 'email' => 'required|unique:users',
             ]);
         }
 
         $user->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'jk'=>$request->jk,
+            'name' => $request->name,
+            'email' => $request->email,
+            'jk' => $request->jk,
         ]);
 
-        return redirect('admin')->with('update','Data Berhasil Di Update');
+        return redirect('admin')->with('update', 'Data Berhasil Di Update');
     }
 
     public function delete($id)
     {
         $user = User::find($id);
-        $hitung = User::where('level','A')->count();
+        $hitung = User::where('level', 'A')->count();
 
-        if($hitung == 1){
-            return redirect('admin')->with('gagal','Tidak Bisa Menghapus Admin Karena Sisa 1 Admin');
+        if ($hitung == 1) {
+            return redirect('admin')->with('gagal', 'Tidak Bisa Menghapus Admin Karena Sisa 1 Admin');
         }
-        
+
         $user->delete();
-        return redirect('admin')->with('update','Data Berhasil Di Hapus');
+        return redirect('admin')->with('update', 'Data Berhasil Di Hapus');
     }
 
     public function index2()
     {
-        
-        $user = User::where('level','U')->get();
-        return view('user/index',compact('user'));
+
+        $user = User::where('level', 'U')->get();
+        return view('user/index', compact('user'));
     }
 
     public function store2(Request $request)
@@ -92,52 +92,51 @@ class UserController extends Controller
         ]);
 
         User::create([
-            'name'=> $request->name,
+            'name' => $request->name,
             'email' => $request->email,
-            'password'=>bcrypt($request->password),
-            'level'=>'U',
-            'jk'=>$request->jk,
+            'password' => bcrypt($request->password),
+            'level' => 'U',
+            'jk' => $request->jk,
         ]);
-        
-        return redirect()->back()->with('masuk','Data Berhasil Di Input');
+
+        return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
     }
 
     public function edit2($id)
     {
         $user = User::find($id);
-        return view('user/edit',compact('user'));
+        return view('user/edit', compact('user'));
     }
 
     public function update2(Request $request)
     {
         $user = User::find($request->id);
 
-        if($request->email != $user->email){
+        if ($request->email != $user->email) {
             $request->validate([
                 'email' => 'required|unique:users',
             ]);
         }
 
         $user->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'jk'=>$request->jk,
+            'name' => $request->name,
+            'email' => $request->email,
+            'jk' => $request->jk,
         ]);
 
-        return redirect('user')->with('update','Data Berhasil Di Update');
+        return redirect('user')->with('update', 'Data Berhasil Di Update');
     }
 
     public function delete2($id)
     {
         $user = User::find($id);
-        $hitung = Map::where('user_id',$id)->count();
+        $hitung = Map::where('user_id', $id)->count();
 
-        if($hitung != 0){
-            return redirect('user')->with('gagal','Tidak Bisa Menghapus User Karena User Tersebut Sudah Mengerjakan Salah Satu Map');
+        if ($hitung != 0) {
+            return redirect('user')->with('gagal', 'Tidak Bisa Menghapus User Karena User Tersebut Sudah Mengerjakan Salah Satu Map');
         }
-        
-        $user->delete();
-        return redirect('user')->with('update','Data Berhasil Di Hapus');
-    }
 
+        $user->delete();
+        return redirect('user')->with('update', 'Data Berhasil Di Hapus');
+    }
 }

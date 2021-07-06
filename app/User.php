@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Gaji::class);
     }
+
+    public function karyawan()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
