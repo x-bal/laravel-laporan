@@ -9,7 +9,7 @@ class JenisController extends Controller
 {
     public function index()
     {
-        $jenis = Jenis::get();
+        $jenis = Jenis::where('id', '!=', 1)->where('id', '!=', 4)->get();
         return view('jenis.index', compact('jenis'));
     }
 

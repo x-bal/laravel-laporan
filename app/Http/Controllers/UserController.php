@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Karyawan;
 use App\Map;
 use App\User;
 use Illuminate\Http\Request;
@@ -17,8 +18,8 @@ class UserController extends Controller
     public function index()
     {
 
-        $user = User::with('karyawan')->where('level', 'A')->get();
-        return view('admin/index', compact('user'));
+        $users = User::with('karyawan')->where('level', 'A')->get();
+        return view('admin/index', compact('users'));
     }
 
     public function store(Request $request)
@@ -28,12 +29,16 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        User::create([
-            'name' => $request->name,
+        $user = User::create([
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'level' => 'A',
-            'jk' => $request->jk,
+        ]);
+
+        Karyawan::create([
+            'user_id' => $user->id,
+            'name' => request('name'),
+            'jk' => request('jk'),
         ]);
 
         return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
@@ -41,7 +46,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::with('karyawan')->find($id);
         return view('admin/edit', compact('user'));
     }
 
@@ -73,6 +78,7 @@ class UserController extends Controller
             return redirect('admin')->with('gagal', 'Tidak Bisa Menghapus Admin Karena Sisa 1 Admin');
         }
 
+        $user->karyawan()->delete();
         $user->delete();
         return redirect('admin')->with('update', 'Data Berhasil Di Hapus');
     }
@@ -80,8 +86,8 @@ class UserController extends Controller
     public function index2()
     {
 
-        $user = User::where('level', 'U')->get();
-        return view('user/index', compact('user'));
+        $users = User::with('karyawan')->where('level', 'U')->get();
+        return view('user/index', compact('users'));
     }
 
     public function store2(Request $request)
@@ -91,12 +97,15 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        User::create([
-            'name' => $request->name,
+        $user = User::create([
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'level' => 'U',
+        ]);
+
+        $user->karyawan()->create([
             'jk' => $request->jk,
+            'name' => $request->name,
         ]);
 
         return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
@@ -104,7 +113,7 @@ class UserController extends Controller
 
     public function edit2($id)
     {
-        $user = User::find($id);
+        $user = User::with('karyawan')->find($id);
         return view('user/edit', compact('user'));
     }
 
@@ -119,8 +128,11 @@ class UserController extends Controller
         }
 
         $user->update([
-            'name' => $request->name,
             'email' => $request->email,
+        ]);
+
+        $user->karyawan()->update([
+            'name' => $request->name,
             'jk' => $request->jk,
         ]);
 

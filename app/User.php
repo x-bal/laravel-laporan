@@ -49,6 +49,6 @@ class User extends Authenticatable
 
     public function karyawan()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(Karyawan::class);
     }
 }

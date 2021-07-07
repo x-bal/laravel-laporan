@@ -41,16 +41,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user as $i => $u)
+                    @foreach ($users as $user)
                     <tr>
-                        <td>{{++$i}}</td>
-                        <td>{{$u->karyawan}}</td>
-                        <td>{{$u->email}}</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{$user->karyawan->name}}</td>
+                        <td>{{$user->email}}</td>
                         <td>Password Tidak Ditampilkan</td>
-                        <td>{{$u->jk}}</td>
+                        <td>{{$user->karyawan->jk}}</td>
                         <td>
-                            <a href="{{url('/admin/edit/'.$u->id)}}" class="btn btn-primary btn-sm ml-2">Edit</a>
-                            <a href="{{url('/admin/delete/'.$u->id)}}" class="btn btn-danger btn-sm ml-2" onclick="return confirm('Apakah anda yakin ?')">Delete</a>
+                            <a href="{{url('/admin/edit/'.$user->id)}}" class="btn btn-primary btn-sm ml-2">Edit</a>
+                            <a href="{{url('/admin/delete/'.$user->id)}}" class="btn btn-danger btn-sm ml-2" onclick="return confirm('Apakah anda yakin ?')">Delete</a>
                         </td>
                     </tr>
                     @endforeach

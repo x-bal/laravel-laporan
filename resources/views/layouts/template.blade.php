@@ -70,7 +70,7 @@
       <li class="nav-item {{ (request()->is('user*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('user')}}">
           <i class="fas fa-fw fa-users"></i>
-          <span>Data User</span></a>
+          <span>Data karyawan</span></a>
       </li>
       <li class="nav-item {{ (request()->is('map*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('map')}}">

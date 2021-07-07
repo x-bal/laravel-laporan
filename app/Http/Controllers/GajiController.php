@@ -14,7 +14,7 @@ class GajiController extends Controller
     public function index()
     {
         $gaji = Gaji::get();
-        $users = User::get();
+        $users = User::with('karyawan')->get();
         return view('gaji.index', compact('gaji', 'users'));
     }
 
@@ -54,7 +54,7 @@ class GajiController extends Controller
 
     public function laporan()
     {
-        $users = User::get();
+        $users = User::with('karyawan')->get();
         $gaji = null;
 
         if (request('user') && request('bulan')) {

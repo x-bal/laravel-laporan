@@ -22,7 +22,7 @@
                                 <select name="user" id="user" class="form-control">
                                     <option disabled selected>-- Pilih User --</option>
                                     @foreach($users as $user)
-                                    <option {{ request('user') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                                    <option {{ request('user') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->karyawan->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

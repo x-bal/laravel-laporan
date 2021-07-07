@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="">Nama Admin</label>
                 <input type="hidden" name="id" value="{{$user->id}}">
-                <input type="text" name="name" class="form-control" value="{{$user->name}}">
+                <input type="text" name="name" class="form-control" value="{{$user->karyawan->name}}">
             </div>
             <div class="form-group">
                 <label for="">Email</label>
@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label for="">Jenis Kelamin</label>
                 <select name="jk" id="jk" class="form-control">
-                    @if($user->jk == 'P')
+                    @if($user->karyawan->jk == 'P')
                     <option value="P" selected>Perempuan</option>
                     <option value="L">Laki - laki</option>
                     @else
@@ -30,7 +30,7 @@
                 </select>
             </div>
             @error('email')
-                <strong style="color:red">{{ $message }}</strong>
+            <strong style="color:red">{{ $message }}</strong>
             @enderror
             <input type="submit" value="Update" class="btn btn-warning">
         </form>
