@@ -19,6 +19,14 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="id_karyawan">ID Karyawan</label>
+                        <input type="text" name="id_karyawan" class="form-control">
+
+                        @error('id_karyawan')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" name="email" class="form-control">
 
@@ -52,6 +60,14 @@
                         <input type="number" name="nohp" class="form-control">
 
                         @error('nohp')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="divis">Divisi</label>
+                        <input type="text" name="divis" class="form-control">
+
+                        @error('divis')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

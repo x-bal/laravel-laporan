@@ -24,6 +24,8 @@ class KaryawanController extends Controller
     {
         request()->validate([
             'nama' => 'required',
+            'id_karyawan' => 'required',
+            'divisi' => 'required',
             'email' => 'required',
             'password' => 'required',
             'jk' => 'required',
@@ -39,6 +41,8 @@ class KaryawanController extends Controller
         ]);
 
         $user->karyawan()->create([
+            'divisi' => request('divisi'),
+            'id_karyawan' => request('id_karyawan'),
             'nama' => request('nama'),
             'nohp' => request('nohp'),
             'jk' => request('jk'),
@@ -70,11 +74,13 @@ class KaryawanController extends Controller
     {
         request()->validate([
             'nama' => 'required',
+            'id_karyawan' => 'required',
             'email' => 'required',
             'jk' => 'required',
             'nohp' => 'required',
             'pendidikan' => 'required',
             'alamat' => 'required',
+            'divisi' => 'required',
         ]);
 
         $user = User::with('karyawan')->where('id', $id)->first();
@@ -91,6 +97,8 @@ class KaryawanController extends Controller
         }
 
         $user->karyawan()->update([
+            'id_karyawan' => request('id_karyawan'),
+            'divisi' => request('divisi'),
             'nama' => request('nama'),
             'nohp' => request('nohp'),
             'jk' => request('jk'),

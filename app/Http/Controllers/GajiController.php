@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Gaji;
+use App\Jenis;
 use App\Kehadiran;
 use App\User;
 use Carbon\Carbon;
@@ -97,6 +98,7 @@ class GajiController extends Controller
         $tgl = Carbon::parse($tanggal)->format('m');
         $id = auth()->user()->id;
 
+        $bpjs = Jenis::find(6);
 
         $gaji = Gaji::where('user_id', $id)->first();
 
@@ -106,7 +108,7 @@ class GajiController extends Controller
         $totalPend = 0;
         $totalPeng = 0;
 
-        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng',));
+        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'bpjs'));
     }
 
     public function generateAdmin($id = null, $bulan = null)
@@ -115,13 +117,13 @@ class GajiController extends Controller
         $gaji = Gaji::where('user_id', $id)->first();
 
         $user = User::with('karyawan')->find($id);
-
+        $bpjs = Jenis::find(6);
         $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->whereMonth('tanggal', '=', $bulan)->get();
         $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereMonth('tanggal', '=', $bulan)->get();
 
         $totalPend = 0;
         $totalPeng = 0;
 
-        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'user'));
+        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'user', 'bpjs'));
     }
 }

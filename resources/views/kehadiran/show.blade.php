@@ -71,12 +71,12 @@
                 <tr>
                     <td width="200px">ID Karyawan</td>
                     <td>:</td>
-                    <td>{{ $kehadiran->user->karyawan->id }}</td>
+                    <td>{{ $kehadiran->user->karyawan->id_karyawan }}</td>
                 </tr>
                 <tr>
                     <td width="200px">Divisi</td>
                     <td>:</td>
-                    <td>-</td>
+                    <td>{{ $kehadiran->user->karyawan->divisi }}</td>
                 </tr>
                 <tr>
                     <td width="200px">Jabatan</td>

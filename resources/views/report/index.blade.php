@@ -10,7 +10,7 @@
                 <a href="{{url('report/in')}}" class="btn btn-primary form-control">Map Masuk</a>
                 <a href="{{url('report/finish')}}" class="btn btn-primary form-control mt-2">Map Selesai</a>
                 <a href="{{url('report/error')}}" class="btn btn-primary form-control mt-2">Map Error</a>
-                <a href="{{url('report/bulanan')}}" class="btn btn-primary form-control mt-2">Laporan Bulanan</a>
+                <a href="{{url('report/akumulasi')}}" class="btn btn-primary form-control mt-2">Laporan Akumulasi</a>
             </div>
             <div class="col-md-6">
                 <a href="{{url('report/progress')}}" class="btn btn-primary form-control">Map Progress</a>

@@ -15,12 +15,14 @@ class CreateKaryawansTable extends Migration
     {
         Schema::create('karyawans', function (Blueprint $table) {
             $table->id();
+            $table->string('id_karyawan', 25);
             $table->foreignId('user_id');
             $table->string('nama');
             $table->enum('jk', ['L', 'P'])->nullable();
             $table->text('alamat');
             $table->string('pendidikan');
             $table->string('nohp', 15);
+            $table->string('divisi');
             $table->timestamps();
         });
     }

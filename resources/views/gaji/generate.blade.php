@@ -59,9 +59,9 @@
                 <td> : </td>
                 <td>
                     @if(auth()->user()->level == 'U')
-                    {{ auth()->user()->id }}
+                    {{ auth()->user()->karyawan->id_karyawan }}
                     @else
-                    {{ $user->id }}
+                    {{ $user->karyawan->id_karyawan }}
                     @endif
                 </td>
             </tr>
@@ -130,11 +130,14 @@
             <tr>
                 <td>BPJS</td>
                 <td> : </td>
-                <td>-</td>
+                <td>Rp. {{ $bpjs->nominal }}</td>
             </tr>
             <tr>
                 <td>Total Pengurangan</td>
                 <td> : </td>
+                @php
+                $totpeng = $totalPeng + $bpjs->nominal
+                @endphp
                 <td>Rp. {{ $totalPeng }}</td>
             </tr>
         </table>
