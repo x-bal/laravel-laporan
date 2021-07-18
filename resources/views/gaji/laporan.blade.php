@@ -22,7 +22,7 @@
                                 <select name="user" id="user" class="form-control">
                                     <option disabled selected>-- Pilih User --</option>
                                     @foreach($users as $user)
-                                    <option {{ request('user') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->karyawan->name }}</option>
+                                    <option {{ request('user') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->karyawan->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -71,7 +71,7 @@
                             <tr>
                                 @foreach($pendapatan as $pnd)
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $pnd->user->name }}</td>
+                                <td>{{ $pnd->user->karyawan->nama }}</td>
                                 <td>{{ $pnd->tanggal }}</td>
                                 <td>{{ $pnd->keterangan }}</td>
                                 <td>{{ $pnd->jenis->nominal }}</td>
@@ -109,7 +109,7 @@
                             <tr>
                                 @foreach($pengurangan as $pnr)
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $pnr->user->name }}</td>
+                                <td>{{ $pnr->user->karyawan->nama }}</td>
                                 <td>{{ $pnr->tanggal }}</td>
                                 <td>{{ $pnr->keterangan }}</td>
                                 <td>{{ $pnr->jenis->nominal }}</td>
@@ -134,6 +134,11 @@
             @endphp
 
             <button class="btn btn-info mt-3">Gaji Karyawan : Rp. {{ $gaji->gaji }}</button>
+            @if(auth()->user()->level == 'U')
+            <a href="/gaji/generate/{{ request('tanggal') }}" class="btn btn-primary mt-3"><i class="fas fa-download"></i> Generate Laporan</a>
+            @else
+            <a href="/gaji/generate/{{ request('user') }}/{{ request('bulan') }}" class="btn btn-primary mt-3"><i class="fas fa-download"></i> Generate Laporan</a>
+            @endif
             <div class="alert alert-success mt-3">Total Yang Harus Dibayar : Rp. {{ $totalPem }}</div>
             @endif
         </div>

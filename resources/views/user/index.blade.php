@@ -36,7 +36,6 @@
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Password</th>
-                        <th>Jenis Kelamin</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -44,10 +43,9 @@
                     @foreach ($users as $user)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$user->karyawan->name}}</td>
+                        <td>{{$user->karyawan->nama}}</td>
                         <td>{{$user->email}}</td>
                         <td>Password Tidak Ditampilkan</td>
-                        <td>{{$user->karyawan->jk}}</td>
                         <td>
                             <a href="{{url('/user/edit/'.$user->id)}}" class="btn btn-primary btn-sm ml-2">Edit</a>
                             <a href="{{url('/user/delete/'.$user->id)}}" class="btn btn-danger btn-sm ml-2" onclick="return confirm('Apakah anda yakin ?')">Delete</a>
@@ -75,7 +73,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="name">Nama</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" name="nama" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>

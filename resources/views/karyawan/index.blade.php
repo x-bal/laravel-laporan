@@ -1,9 +1,9 @@
 @extends('layouts.template')
 @section('content')
-<title>Data Admin | Kasir</title>
+<title>Data Karyawan | Kasir</title>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Admin</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Data Karyawan</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -26,7 +26,7 @@
             <strong style="color:red">{{ $message }}</strong>
             @enderror
             <br>
-            <button class="btn btn-success" data-toggle="modal" data-target="#tambah">Tambah Data</button>
+            <a href="{{ route('karyawan.create') }}" class="btn btn-primary">Tambah Data</a>
             <br>
             <br>
             <table id="dataTable" class="table table-bordered" cellspacing="0">
@@ -35,22 +35,28 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Email</th>
-                        <th>Password</th>
-                        <th>Jenis Kelamin</th>
+                        <th>No Hp</th>
+                        <th>JK</th>
+                        <th>Jabatan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{$loop->iteration}}</td>
                         <td>{{$user->karyawan->nama}}</td>
                         <td>{{$user->email}}</td>
-                        <td>Password Tidak Ditampilkan</td>
+                        <td>{{$user->karyawan->nohp }}</td>
                         <td>{{$user->karyawan->jk}}</td>
+                        <td>Karyawan</td>
                         <td>
-                            <a href="{{url('/admin/edit/'.$user->id)}}" class="btn btn-primary btn-sm ml-2">Edit</a>
-                            <a href="{{url('/admin/delete/'.$user->id)}}" class="btn btn-danger btn-sm ml-2" onclick="return confirm('Apakah anda yakin ?')">Delete</a>
+                            <a href="{{ route('karyawan.edit', $user->id) }}" class="btn btn-primary btn-sm ml-2">Edit</a>
+                            <form action="{{ route('karyawan.destroy', $user->id) }}" method="post" style="display: inline;">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ?')">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -71,11 +77,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{url('/admin/store')}}" method="post">
+                <form action="{{url('/user/store')}}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="name">Nama</label>
-                        <input type="text" name="nama" class="form-control" required>
+                        <input type="text" name="name" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>

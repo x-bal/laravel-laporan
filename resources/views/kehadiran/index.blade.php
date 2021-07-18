@@ -115,7 +115,7 @@
                         <select name="user" class="form-control" required>
                             <option disabled selected>-- Pilih User --</option>
                             @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}">{{ $user->karyawan->nama }}</option>
                             @endforeach
                         </select>
                     </div>

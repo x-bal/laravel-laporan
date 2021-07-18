@@ -40,8 +40,8 @@
                     <tr>
                         @foreach($gaji as $gj)
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $gj->user->name }}</td>
-                        <td>{{ $gj->nohp }}</td>
+                        <td>{{ $gj->user->karyawan->nama }}</td>
+                        <td>{{ $gj->user->karyawan->nohp }}</td>
                         <td>{{ $gj->user->level == 'U' ? 'Karyawan' : 'Admin' }}</td>
                         <td>{{ $gj->tgl_masuk }}</td>
                         <td>{{ $gj->tgl_bayar }}</td>
@@ -121,14 +121,9 @@
                         <select name="user" id="user" class="form-control">
                             <option disabled selected>-- Pilih User --</option>
                             @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->karyawan->name }}</option>
+                            <option value="{{ $user->id }}">{{ $user->karyawan->nama }}</option>
                             @endforeach
                         </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nohp">No Hp</label>
-                        <input type="number" name="nohp" class="form-control" required>
                     </div>
 
                     <div class="form-group">

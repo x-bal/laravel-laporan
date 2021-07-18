@@ -25,7 +25,6 @@ class GajiController extends Controller
                 'user_id' => request('user'),
             ],
             [
-                'nohp' => request('nohp'),
                 'tgl_masuk' => request('tgl_masuk'),
                 'tgl_bayar' => request('tgl_bayar'),
                 'gaji' => request('gaji'),
@@ -38,7 +37,6 @@ class GajiController extends Controller
     public function update(Request $request, Gaji $gaji)
     {
         $gaji->update([
-            'nohp' => request('nohp'),
             'tgl_masuk' => request('tgl_masuk'),
             'tgl_bayar' => request('tgl_bayar'),
             'gaji' => request('gaji'),
@@ -92,5 +90,38 @@ class GajiController extends Controller
         $totalPeng = 0;
 
         return view('gaji.laporan', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng'));
+    }
+
+    public function generate($tanggal = null)
+    {
+        $tgl = Carbon::parse($tanggal)->format('m');
+        $id = auth()->user()->id;
+
+
+        $gaji = Gaji::where('user_id', $id)->first();
+
+        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->whereMonth('tanggal', '=', $tgl)->get();
+        $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereMonth('tanggal', '=', $tgl)->get();
+
+        $totalPend = 0;
+        $totalPeng = 0;
+
+        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng',));
+    }
+
+    public function generateAdmin($id = null, $bulan = null)
+    {
+
+        $gaji = Gaji::where('user_id', $id)->first();
+
+        $user = User::with('karyawan')->find($id);
+
+        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->whereMonth('tanggal', '=', $bulan)->get();
+        $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereMonth('tanggal', '=', $bulan)->get();
+
+        $totalPend = 0;
+        $totalPeng = 0;
+
+        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'user'));
     }
 }

@@ -67,10 +67,15 @@
           <i class="fas fa-fw fa-user"></i>
           <span>Data Admin</span></a>
       </li>
+      <li class="nav-item {{ (request()->is('karyawan*')) ? 'active' : '' }}">
+        <a class="nav-link" href="{{url('karyawan')}}">
+          <i class="fas fa-fw fa-user-shield"></i>
+          <span>Data karyawan</span></a>
+      </li>
       <li class="nav-item {{ (request()->is('user*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('user')}}">
           <i class="fas fa-fw fa-users"></i>
-          <span>Data karyawan</span></a>
+          <span>Data User</span></a>
       </li>
       <li class="nav-item {{ (request()->is('map*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('map')}}">
@@ -180,7 +185,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->karyawan->nama}}</span>
 
               </a>
               <!-- Dropdown - User Information -->

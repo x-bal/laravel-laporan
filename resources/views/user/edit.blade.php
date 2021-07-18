@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="">Nama Admin</label>
                 <input type="hidden" name="id" value="{{$user->id}}">
-                <input type="text" name="name" class="form-control" value="{{$user->karyawan->name}}">
+                <input type="text" name="nama" class="form-control" value="{{$user->karyawan->nama}}">
             </div>
             <div class="form-group">
                 <label for="">Email</label>

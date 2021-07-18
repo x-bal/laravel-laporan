@@ -99,6 +99,8 @@ Route::prefix('report')->group(function () {
         Route::post('store', 'ReportController@total');
         Route::get('export', 'ReportController@exportTotal');
     });
+
+    Route::get('akumulasi', 'ReportController@akumulasi');
 });
 
 // Route Kehadiran
@@ -110,9 +112,14 @@ Route::resource('/kehadiran', 'KehadiranController');
 // Route Setting
 Route::resource('/setting', 'JenisController');
 
+// Route Karyawan
+Route::resource('karyawan', 'KaryawanController');
+
 // Route Gaji
 Route::get('/gaji/laporan', 'GajiController@laporan')->name('gaji.laporan');
 Route::get('/gaji/laporan/karyawan/{tanggal}', 'GajiController@laporanKaryawan')->name('gaji.laporanKaryawan');
+Route::get('/gaji/generate/{tanggal}', 'GajiController@generate')->name('gaji.generate');
+Route::get('/gaji/generate/{id}/{bulan}', 'GajiController@generateAdmin')->name('gaji.generate.admin');
 Route::get('/gaji/slip', 'GajiController@slip')->name('gaji.slip');
 Route::resource('/gaji', 'GajiController');
 

@@ -20,8 +20,10 @@ class UsersTableSeeder extends Seeder
         ]);
 
         Karyawan::create([
-            'name' => "Admin",
+            'nama' => "Admin",
             'jk' => 'L',
+            'alamat' => "Jakarta",
+            'pendidikan' => 'SMK',
             'nohp' => '08965778674',
             'user_id' => $user->id
         ]);

@@ -37,7 +37,7 @@ class UserController extends Controller
 
         Karyawan::create([
             'user_id' => $user->id,
-            'name' => request('name'),
+            'nama' => request('nama'),
             'jk' => request('jk'),
         ]);
 
@@ -61,7 +61,7 @@ class UserController extends Controller
         }
 
         $user->update([
-            'name' => $request->name,
+            'nama' => $request->nama,
             'email' => $request->email,
             'jk' => $request->jk,
         ]);
@@ -105,7 +105,7 @@ class UserController extends Controller
 
         $user->karyawan()->create([
             'jk' => $request->jk,
-            'name' => $request->name,
+            'nama' => $request->nama,
         ]);
 
         return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
@@ -132,7 +132,7 @@ class UserController extends Controller
         ]);
 
         $user->karyawan()->update([
-            'name' => $request->name,
+            'nama' => $request->nama,
             'jk' => $request->jk,
         ]);
 
@@ -148,6 +148,7 @@ class UserController extends Controller
             return redirect('user')->with('gagal', 'Tidak Bisa Menghapus User Karena User Tersebut Sudah Mengerjakan Salah Satu Map');
         }
 
+        $user->karyawan()->delete();
         $user->delete();
         return redirect('user')->with('update', 'Data Berhasil Di Hapus');
     }
