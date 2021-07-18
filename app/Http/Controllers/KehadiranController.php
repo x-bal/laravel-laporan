@@ -16,7 +16,7 @@ class KehadiranController extends Controller
         $users = User::get();
 
         if (request('jenis')) {
-            $kehadiran = Kehadiran::where('jeni_id', request('jenis'))->latest()->get();
+            $kehadiran = Kehadiran::with('user')->where('jeni_id', request('jenis'))->latest()->get();
         } else {
             $kehadiran = null;
         }
@@ -80,7 +80,7 @@ class KehadiranController extends Controller
 
     public function show(Kehadiran $kehadiran)
     {
-        //
+        return view('kehadiran.show', compact('kehadiran'));
     }
 
     public function edit(Kehadiran $kehadiran)

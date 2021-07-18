@@ -67,13 +67,13 @@
                     <tr>
                         @if(request('jenis') == 1)
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $hadir->user->name }}</td>
+                        <td>{{ $hadir->user->karyawan->nama }}</td>
                         <td>{{ $hadir->tanggal }}</td>
                         <td>{{ $hadir->keterangan }}</td>
                         <td>{{ $hadir->status }}</td>
                         @else
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $hadir->user->name }}</td>
+                        <td>{{ $hadir->user->karyawan->nama }}</td>
                         <td>{{ $hadir->dari }}</td>
                         <td>{{ $hadir->sampai }}</td>
                         <td>{{ $hadir->keterangan }}</td>
@@ -84,7 +84,9 @@
                             <a href="{{ route('reject', $hadir->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Tolak ?')"><i class="fas fa-times"></i></a>
                         </td>
                         <td class="text-center">
-                            <a href="" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                            @if(request('jenis') == 4)
+                            <a href="{{ route('kehadiran.show', $hadir->id) }}" class="btn btn-info btn-sm"><i class="fas fa-file"></i></a>
+                            @endif
                             <a href="" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin ?')"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
