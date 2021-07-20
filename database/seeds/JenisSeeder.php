@@ -32,5 +32,9 @@ class JenisSeeder extends Seeder
             'name' => 'Lembur',
             'nominal' => 200000
         ]);
+        Jenis::create([
+            'name' => 'BPJS',
+            'nominal' => 200000
+        ]);
     }
 }
