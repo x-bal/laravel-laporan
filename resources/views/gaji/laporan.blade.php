@@ -134,12 +134,13 @@
             @endphp
 
             <button class="btn btn-info mt-3">Gaji Karyawan : Rp. {{ $gaji->gaji }}</button>
+            <button class="btn btn-danger mt-3">BPJS : Rp. {{ $bpjs->nominal }}</button>
             @if(auth()->user()->level == 'U')
             <a href="/gaji/generate/{{ request('tanggal') }}" class="btn btn-primary mt-3"><i class="fas fa-download"></i> Generate Laporan</a>
             @else
             <a href="/gaji/generate/{{ request('user') }}/{{ request('bulan') }}" class="btn btn-primary mt-3"><i class="fas fa-download"></i> Generate Laporan</a>
             @endif
-            <div class="alert alert-success mt-3">Total Yang Harus Dibayar : Rp. {{ $totalPem }}</div>
+            <div class="alert alert-success mt-3">Total Yang Harus Dibayar : Rp. {{ $totalPem - $bpjs->nominal }}</div>
             @endif
         </div>
     </div>

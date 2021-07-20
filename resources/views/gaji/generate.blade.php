@@ -142,7 +142,7 @@
             </tr>
         </table>
 
-        <p style="margin-top: 30px;"><u>TOTAL DITERIMA KARYAWAN</u> Rp. {{ $gaji + $totalPend - $totalPeng }}</p>
+        <p style="margin-top: 30px;"><u>TOTAL DITERIMA KARYAWAN</u> Rp. {{ ($gaji + $totalPend) - ($totalPeng + $bpjs->nominal) }}</p>
 
         <div class="footer" style="margin-top: 150px; position: absolute; display: inline;">
             <table>

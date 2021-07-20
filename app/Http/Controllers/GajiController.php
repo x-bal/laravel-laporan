@@ -58,13 +58,15 @@ class GajiController extends Controller
 
         if (request('user') && request('bulan')) {
             $gaji = Gaji::where('user_id', request('user'))->first();
-            $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', request('user'))->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->whereMonth('tanggal', '=', request('bulan'))->get();
-            $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', request('user'))->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereMonth('tanggal', '=', request('bulan'))->get();
+            $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', request('user'))->where('jeni_id', 5)->where('status', 'Disetujui')->whereMonth('tanggal', '=', request('bulan'))->get();
+
+            $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', request('user'))->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('jeni_id', '!=', '6')->where('status', 'Disetujui')->whereMonth('tanggal', '=', request('bulan'))->get();
 
             $totalPend = 0;
             $totalPeng = 0;
+            $bpjs = Jenis::find(6);
 
-            return view('gaji.laporan', compact('users', 'gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng'));
+            return view('gaji.laporan', compact('users', 'gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'bpjs'));
         } else {
             return view('gaji.laporan', compact('users', 'gaji'));
         }
@@ -84,8 +86,9 @@ class GajiController extends Controller
         $id = auth()->user()->id;
         $gaji = Gaji::where('user_id', $id)->first();
 
-        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->whereMonth('tanggal', '=', $tgl)->get();
-        $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereMonth('tanggal', '=', $tgl)->get();
+        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
+
+        $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
 
         $totalPend = 0;
         $totalPeng = 0;
@@ -102,8 +105,9 @@ class GajiController extends Controller
 
         $gaji = Gaji::where('user_id', $id)->first();
 
-        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->whereMonth('tanggal', '=', $tgl)->get();
-        $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereMonth('tanggal', '=', $tgl)->get();
+        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
+
+        $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
 
         $totalPend = 0;
         $totalPeng = 0;
@@ -118,8 +122,9 @@ class GajiController extends Controller
 
         $user = User::with('karyawan')->find($id);
         $bpjs = Jenis::find(6);
-        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->whereMonth('tanggal', '=', $bulan)->get();
-        $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereMonth('tanggal', '=', $bulan)->get();
+        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
+
+        $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
 
         $totalPend = 0;
         $totalPeng = 0;

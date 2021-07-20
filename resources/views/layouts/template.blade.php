@@ -93,9 +93,20 @@
           <span>Error Map</span></a>
       </li>
       <li class="nav-item {{ (request()->is('kehadiran*')) ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('kehadiran.index') }}">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Kehadiran</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap" aria-expanded="false" aria-controls="collapseBootstrap">
+          <i class="far fa-fw fa-window-maximize"></i>
+          <span>Kehadiran</span>
+        </a>
+        <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar" style="">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Kehadiran</h6>
+            <a class="collapse-item" href="/kehadiran?jenis=1">Absensi</a>
+            <a class="collapse-item" href="/kehadiran?jenis=2">Izin Setengah Hari</a>
+            <a class="collapse-item" href="/kehadiran?jenis=3">Izin</a>
+            <a class="collapse-item" href="/kehadiran?jenis=4">Cuti</a>
+            <a class="collapse-item" href="/kehadiran?jenis=5">Lembur</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item {{ (request()->is('setting*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('setting.index') }}">

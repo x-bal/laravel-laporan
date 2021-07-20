@@ -12,15 +12,20 @@ class KehadiranController extends Controller
 {
     public function index()
     {
-        $jenis = Jenis::get();
         $users = User::get();
-
+        $jeniss = Jenis::get();
         if (request('jenis')) {
-            $kehadiran = Kehadiran::with('user')->where('jeni_id', request('jenis'))->latest()->get();
+            $jenis = Jenis::find(request('jenis'));
+
+            $kehadiran = Kehadiran::with('user')->where('jeni_id', request('jenis'))->where('status', ' Diproses')->latest()->get();
+
+            $accept = Kehadiran::with('user')->where('jeni_id', request('jenis'))->where('status', 'Disetujui')->latest()->get();
+
+            $reject = Kehadiran::with('user')->where('jeni_id', request('jenis'))->where('status', 'Ditolak')->latest()->get();
         } else {
             $kehadiran = null;
         }
-        return view('kehadiran.index', compact('kehadiran', 'jenis', 'users'));
+        return view('kehadiran.index', compact('kehadiran', 'jenis', 'users', 'accept', 'reject', 'jeniss'));
     }
 
     public function create()
@@ -95,7 +100,9 @@ class KehadiranController extends Controller
 
     public function destroy(Kehadiran $kehadiran)
     {
-        //
+        $kehadiran->delete();
+
+        return back()->with('masuk', 'Kehadiran berhasil dihapus');
     }
 
     public function lembur()

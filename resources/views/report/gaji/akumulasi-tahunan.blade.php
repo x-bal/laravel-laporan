@@ -49,10 +49,10 @@
             </table>
             <table style="font-size: 12px; margin-top: 20px; margin-bottom: 20px;" cellspacing="0">
                 <tr>
-                    <td style="text-align: center;">
+                    <td>
                         Total Gaji
                     </td>
-                    <td width="340px"> : </td>
+                    <td width="330px"> : </td>
                     <td width="150px" style="text-align: center;">Rp. {{ $gaji }}</td>
                 </tr>
             </table>
@@ -67,7 +67,7 @@
                     <td width="20px" style="text-align: center;">No.</td>
                     <td width="300px">Nama Karyawan</td>
                     <td width="50px" style="text-align: center;">Bonus</td>
-                    <td width="150px" style="text-align: center;">Gaji</td>
+                    <td width="150px" style="text-align: center;">Rp.</td>
                 </tr>
                 @foreach($pendapatan as $pnd)
                 <tr>
@@ -84,10 +84,10 @@
             </table>
             <table style="font-size: 12px; margin-top: 20px; margin-bottom: 20px;" cellspacing="0">
                 <tr>
-                    <td style="text-align: center;">
+                    <td>
                         Total Pendapatan Karyawan
                     </td>
-                    <td width="300px"> : </td>
+                    <td width="250px"> : </td>
                     <td width="150px" style="text-align: center;">Rp. {{ $totalPend  }}</td>
                 </tr>
             </table>
@@ -101,8 +101,8 @@
                 <tr>
                     <td width="20px" style="text-align: center;">No.</td>
                     <td width="300px">Nama Karyawan</td>
-                    <td width="50px" style="text-align: center;">Bonus</td>
-                    <td width="150px" style="text-align: center;">Gaji</td>
+                    <td width="50px" style="text-align: center;">Alasan</td>
+                    <td width="150px" style="text-align: center;">Rp.</td>
                 </tr>
                 @foreach($pengurangan as $peng)
                 <tr>
@@ -119,11 +119,23 @@
             </table>
             <table style="font-size: 12px; margin-top: 20px; margin-bottom: 20px;" cellspacing="0">
                 <tr>
-                    <td style="text-align: center;">
+                    <td>
                         Total Pengurangan
                     </td>
-                    <td width="300px"> : </td>
+                    <td width="290px"> : </td>
                     <td width="150px" style="text-align: center;">Rp. {{ $totalPeng }}</td>
+                </tr>
+            </table>
+            <table style="font-size: 12px; margin-top: 20px; margin-bottom: 20px;" cellspacing="0">
+                @php
+                $totalKaryawan = \App\User::with('karyawan')->where('level', '!=', 'A')->count()
+                @endphp
+                <tr>
+                    <td>
+                        BPJS
+                    </td>
+                    <td width="360px"> : </td>
+                    <td width="150px" style="text-align: center;">Rp. {{ ($bpjs->nominal * 12) * $totalKaryawan }}</td>
                 </tr>
             </table>
         </div>
@@ -136,7 +148,7 @@
                     Total Pengeluaran
                 </td>
                 <td width="300px"> : </td>
-                <td width="150px" style="text-align: center;">Rp. {{ $gaji + $totalPend - $totalPeng }}</td>
+                <td width="150px" style="text-align: center;">Rp. {{ ($gaji + $totalPend) - ($totalPeng + $bpjs->nominal) }}</td>
             </tr>
         </table>
     </div>
@@ -162,7 +174,7 @@
 
 
     <script>
-        // window.load(print())
+        window.load(print())
     </script>
 </body>
 

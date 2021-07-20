@@ -9,7 +9,7 @@ use App\Exports\MapIn as ExportsMapIn;
 use App\Exports\MapProgress;
 use App\Exports\MapTotal;
 use App\Map;
-use App\{WorkMap, Gaji, User, Kehadiran};
+use App\{WorkMap, Gaji, Jenis, User, Kehadiran};
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
@@ -117,36 +117,40 @@ class ReportController extends Controller
             $gaji = Gaji::whereMonth('created_at', '=', $bulan)->first();
 
             // $users = User::with('karyawan')->get();
-            $akumulasi = User::with('karyawan', 'gaji', 'kehadiran')->whereHas('gaji', function ($query) {
-                return $query->whereMonth('created_at', '=', request('bulan'));
+            $akumulasi = User::with('karyawan', 'gaji', 'kehadiran')->whereHas('kehadiran', function ($query) {
+                return $query->where('status', 'Disetujui')->whereMonth('created_at', '=', request('bulan'));
             })->get();
 
 
-            $pendapatan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '1')->whereMonth('tanggal', '=', $bulan)->get();
-            $pengurangan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereMonth('tanggal', '=', $bulan)->get();
+            $pendapatan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '1')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
+
+            $pengurangan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
 
             $totalPend = 0;
             $totalPeng = 0;
+            $bpjs = Jenis::find(6);
 
-            return view('report.gaji.akumulasi-bulanan', compact('pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'akumulasi', 'bln'));
+            return view('report.gaji.akumulasi-bulanan', compact('pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'akumulasi', 'bln', 'bpjs'));
         } elseif (request('tahun')) {
             $tahun = request('tahun');
 
             $gaji = Gaji::whereYear('created_at', '=', $tahun)->first();
 
             // $users = User::with('karyawan')->get();
-            $akumulasi = User::with('karyawan', 'gaji', 'kehadiran')->whereHas('gaji', function ($query) {
-                return $query->whereYear('created_at', '=', request('tahun'));
+            $akumulasi = User::with('karyawan', 'gaji', 'kehadiran')->whereHas('kehadiran', function ($query) {
+                return $query->where('status', 'Disetujui')->whereYear('created_at', '=', request('tahun'));
             })->get();
 
 
-            $pendapatan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '1')->whereYear('tanggal', '=', $tahun)->get();
-            $pengurangan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->whereYear('tanggal', '=', $tahun)->get();
+            $pendapatan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '1')->where('status', 'Disetujui')->whereYear('tanggal', '=', $tahun)->get();
+
+            $pengurangan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereYear('tanggal', '=', $tahun)->get();
 
             $totalPend = 0;
             $totalPeng = 0;
+            $bpjs = Jenis::find(6);
 
-            return view('report.gaji.akumulasi-tahunan', compact('pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'akumulasi', 'tahun'));
+            return view('report.gaji.akumulasi-tahunan', compact('pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'akumulasi', 'tahun', 'bpjs'));
         }
 
         return view('report.gaji.akumulasi');
