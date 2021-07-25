@@ -33,11 +33,12 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
-                        <th>Email</th>
                         <th>No Hp</th>
                         <th>JK</th>
                         <th>Jabatan</th>
+                        <th>Divisi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -45,11 +46,12 @@
                     @foreach ($users as $user)
                     <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td>{{$user->karyawan->id_karyawan}}</td>
                         <td>{{$user->karyawan->nama}}</td>
-                        <td>{{$user->email}}</td>
                         <td>{{$user->karyawan->nohp }}</td>
-                        <td>{{$user->karyawan->jk}}</td>
+                        <td>{{$user->karyawan->jk }}</td>
                         <td>Karyawan</td>
+                        <td>{{$user->karyawan->divisi}}</td>
                         <td>
                             <a href="{{ route('karyawan.edit', $user->id) }}" class="btn btn-primary btn-sm ml-2">Edit</a>
                             <form action="{{ route('karyawan.destroy', $user->id) }}" method="post" style="display: inline;">

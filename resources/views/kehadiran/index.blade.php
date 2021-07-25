@@ -60,6 +60,9 @@
                         <td>{{ $hadir->status }}</td>
                         @endif
                         <td class="text-center">
+                            @if(request('jenis') == 4)
+                            <a href="{{ route('kehadiran.show', $rjc->id) }}" class="btn btn-info btn-sm"><i class="fas fa-file"></i></a>
+                            @endif
                             <a href="{{ route('accept', $hadir->id) }}" class="btn btn-success btn-sm" onclick="return confirm('Setujui ?')"><i class="fas fa-check"></i></a>
                             <a href="{{ route('reject', $hadir->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Tolak ?')"><i class="fas fa-times"></i></a>
                         </td>

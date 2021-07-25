@@ -17,7 +17,7 @@ class KehadiranController extends Controller
         if (request('jenis')) {
             $jenis = Jenis::find(request('jenis'));
 
-            $kehadiran = Kehadiran::with('user')->where('jeni_id', request('jenis'))->where('status', ' Diproses')->latest()->get();
+            $kehadiran = Kehadiran::with('user')->where('jeni_id', request('jenis'))->where('status', 'Diproses')->latest()->get();
 
             $accept = Kehadiran::with('user')->where('jeni_id', request('jenis'))->where('status', 'Disetujui')->latest()->get();
 
@@ -30,7 +30,7 @@ class KehadiranController extends Controller
 
     public function create()
     {
-        $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->get();
+        $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->get();
         return view('kehadiran.create', compact('jenis'));
     }
 

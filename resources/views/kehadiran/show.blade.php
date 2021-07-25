@@ -28,7 +28,7 @@
         <h4 style="text-transform: uppercase; text-align: center;">Surat Permohonan Cuti Karyawan</h4>
 
         <div class="right">
-            <p>Jakarta, {{ \Carbon\Carbon::parse($kehadiran->created_at)->format('d F Y') }}</p>
+            <p>Banjarmasin, {{ \Carbon\Carbon::parse($kehadiran->created_at)->format('d F Y') }}</p>
 
             <p>
             <table>

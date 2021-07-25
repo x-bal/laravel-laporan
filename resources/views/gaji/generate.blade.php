@@ -95,6 +95,18 @@
         @endphp
         @endif
         @endforeach
+
+        @foreach($lembur as $lem)
+        @if(auth()->user()->level == 'U')
+        @php
+        $totalLem += $lem->jenis->nominal;
+        @endphp
+        @else
+        @php
+        $totalLem += $lem->jenis->nominal;
+        @endphp
+        @endif
+        @endforeach
         <p style="margin-top: 30px;"><u>PENDAPATAN</u></p>
         <table>
             <tr>
@@ -105,7 +117,7 @@
             <tr>
                 <td>Lembur</td>
                 <td> : </td>
-                <td>Rp. {{ $totalPend }}</td>
+                <td>Rp. {{ $totalLem }}</td>
             </tr>
             <tr>
                 <td>Total Pendapatan</td>

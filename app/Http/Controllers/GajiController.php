@@ -55,6 +55,7 @@ class GajiController extends Controller
     {
         $users = User::with('karyawan')->get();
         $gaji = null;
+        $bpjs = Jenis::find(6);
 
         if (request('user') && request('bulan')) {
             $gaji = Gaji::where('user_id', request('user'))->first();
@@ -64,11 +65,10 @@ class GajiController extends Controller
 
             $totalPend = 0;
             $totalPeng = 0;
-            $bpjs = Jenis::find(6);
 
             return view('gaji.laporan', compact('users', 'gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'bpjs'));
         } else {
-            return view('gaji.laporan', compact('users', 'gaji'));
+            return view('gaji.laporan', compact('users', 'gaji', 'bpjs'));
         }
     }
 
@@ -86,14 +86,15 @@ class GajiController extends Controller
         $id = auth()->user()->id;
         $gaji = Gaji::where('user_id', $id)->first();
 
-        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
+        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '5')->whereMonth('tanggal', '=', $tgl)->get();
 
         $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
 
         $totalPend = 0;
         $totalPeng = 0;
+        $bpjs = Jenis::find(6);
 
-        return view('gaji.laporan', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng'));
+        return view('gaji.laporan', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'bpjs'));
     }
 
     public function generate($tanggal = null)
@@ -107,12 +108,15 @@ class GajiController extends Controller
 
         $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
 
+        $lembur = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
+
         $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
 
         $totalPend = 0;
         $totalPeng = 0;
+        $totalLem = 0;
 
-        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'bpjs'));
+        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'totalLem', 'bpjs', 'lembur'));
     }
 
     public function generateAdmin($id = null, $bulan = null)
@@ -124,11 +128,15 @@ class GajiController extends Controller
         $bpjs = Jenis::find(6);
         $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
 
+        $lembur = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
+
+
         $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
 
         $totalPend = 0;
         $totalPeng = 0;
+        $totalLem = 0;
 
-        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'user', 'bpjs'));
+        return view('gaji.generate', compact('gaji', 'pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'user', 'bpjs', 'lembur', 'totalLem'));
     }
 }

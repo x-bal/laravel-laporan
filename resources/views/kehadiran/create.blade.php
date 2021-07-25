@@ -18,6 +18,7 @@
                     <form action="{{ route('kehadiran.store') }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-primary" onclick="return confirm('Lakukan Absensi ?')">Absensi</button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#izinSet">Izin Setengah Hari</button>
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#izin">Izin</button>
                     </form>
 
@@ -32,7 +33,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Masukan Data</h4>
+                <h4 class="modal-title">Form Izin atau Cuti</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -59,6 +60,36 @@
                         <label for="sampai">Sampai</label>
                         <input type="date" name="sampai" class="form-control" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <textarea name="keterangan" id="keterangan" rows="3" class="form-control"></textarea>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Ajukan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="izinSet" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Form Izin Setengah Hari</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('kehadiran.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="jenis" value="2">
 
                     <div class="form-group">
                         <label for="keterangan">Keterangan</label>

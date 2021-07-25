@@ -93,6 +93,7 @@ class KaryawanController extends Controller
         } else {
             $user->update([
                 'email' => request('email'),
+                'password' => $user->password,
             ]);
         }
 
