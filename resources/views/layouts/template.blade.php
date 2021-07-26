@@ -72,6 +72,11 @@
           <i class="fas fa-fw fa-user-shield"></i>
           <span>Data karyawan</span></a>
       </li>
+      <li class="nav-item {{ (request()->is('bendahara*')) ? 'active' : '' }}">
+        <a class="nav-link" href="{{url('bendahara')}}">
+          <i class="fas fa-fw fa-user-shield"></i>
+          <span>Data Bendahara</span></a>
+      </li>
       <li class="nav-item {{ (request()->is('user*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('user')}}">
           <i class="fas fa-fw fa-users"></i>
@@ -113,6 +118,8 @@
           <i class="fas fa-fw fa-cog"></i>
           <span>Setting</span></a>
       </li>
+      @endif
+      @if(auth()->user()->level != 'U')
       <li class="nav-item {{ (request()->is('gaji*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('gaji.index') }}">
           <i class="fas fa-fw fa-cog"></i>
@@ -123,7 +130,8 @@
           <i class="fas fa-fw fa-building"></i>
           <span>Laporan</span></a>
       </li>
-      @else
+      @endif
+      @if(auth()->user()->level == 'U')
       <li class="nav-item {{ (request()->is('work-map*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('work-map')}}">
           <i class="fas fa-fw fa-user"></i>

@@ -1,9 +1,9 @@
 @extends('layouts.template')
 @section('content')
-<title>Data Karyawan | Kasir</title>
+<title>Data Bendahara | Kasir</title>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Karyawan</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Data Bendahara</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -25,7 +25,7 @@
             @error('email')
             <strong style="color:red">{{ $message }}</strong>
             @enderror
-            <form action="" method="get" class="mb-3">
+            <!-- <form action="" method="get" class="mb-3">
                 <div class="row">
                     <div class="col">
                         <select name="divisi" id="divisi" class="form-control">
@@ -38,8 +38,8 @@
                         <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i></button>
                     </div>
                 </div>
-            </form>
-            <a href="{{ route('karyawan.create') }}" class="btn btn-primary">Tambah Data</a>
+            </form> -->
+            <a href="{{ route('bendahara.create') }}" class="btn btn-primary">Tambah Data</a>
             <br>
             <br>
             <table id="dataTable" class="table table-bordered" cellspacing="0">
@@ -56,18 +56,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($bendahara as $bend)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$user->karyawan->id_karyawan}}</td>
-                        <td>{{$user->karyawan->nama}}</td>
-                        <td>{{$user->karyawan->nohp }}</td>
-                        <td>{{$user->karyawan->jk }}</td>
-                        <td>Karyawan</td>
-                        <td>{{$user->karyawan->divisi}}</td>
+                        <td>{{$bend->karyawan->id_karyawan}}</td>
+                        <td>{{$bend->karyawan->nama}}</td>
+                        <td>{{$bend->karyawan->nohp }}</td>
+                        <td>{{$bend->karyawan->jk }}</td>
+                        <td>Bendahara</td>
+                        <td>{{$bend->karyawan->divisi}}</td>
                         <td>
-                            <a href="{{ route('karyawan.edit', $user->id) }}" class="btn btn-primary btn-sm ml-2">Edit</a>
-                            <form action="{{ route('karyawan.destroy', $user->id) }}" method="post" style="display: inline;">
+                            <a href="{{ route('bendahara.edit', $bend->id) }}" class="btn btn-primary btn-sm ml-2">Edit</a>
+                            <form action="{{ route('bendahara.destroy', $bend->id) }}" method="post" style="display: inline;">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ?')">Delete</button>

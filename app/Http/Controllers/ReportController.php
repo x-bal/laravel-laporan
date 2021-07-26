@@ -155,4 +155,15 @@ class ReportController extends Controller
 
         return view('report.gaji.akumulasi');
     }
+
+    public function cuti()
+    {
+        if (request('tahun')) {
+            $cuti = Kehadiran::with('user', 'jenis')->where('jeni_id', '4')->where('status', 'Disetujui')->whereYear('tanggal', '=', request('tahun'))->get();
+
+            return view('report.cuti.laporan', compact('cuti'));
+        }
+
+        return view('report.cuti.preview');
+    }
 }

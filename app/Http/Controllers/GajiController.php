@@ -16,6 +16,22 @@ class GajiController extends Controller
     {
         $gaji = Gaji::get();
         $users = User::with('karyawan')->get();
+
+        if (request('divisi')) {
+
+            if (request('divisi') == 'all') {
+                $gaji = User::with('karyawan', 'gaji', 'karyawan')->where('level', '!=', 'A')->get();
+
+                return view('gaji.print', compact('gaji'));
+            }
+
+            $gaji = User::with('karyawan', 'gaji', 'karyawan')->whereHas('karyawan', function ($query) {
+                return $query->where('divisi', request('divisi'));
+            })->get();
+
+            return view('gaji.print', compact('gaji'));
+        }
+
         return view('gaji.index', compact('gaji', 'users'));
     }
 

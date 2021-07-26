@@ -6,7 +6,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Tambah Data</h6>
     </div>
     <div class="card-body">
-        <form action="{{ route('karyawan.store') }}" method="post">
+        <form action="{{ route('bendahara.store') }}" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-6">
@@ -19,7 +19,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="id_karyawan">ID Karyawan</label>
+                        <label for="id_karyawan">ID Bendahara</label>
                         <input type="text" name="id_karyawan" class="form-control">
 
                         @error('id_karyawan')
@@ -64,7 +64,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="divisi">Divisi</label>
+                        <label for="divis">Divisi</label>
                         <input type="text" name="divisi" class="form-control">
 
                         @error('divisi')

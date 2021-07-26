@@ -20,7 +20,20 @@
             @error('email')
             <strong style="color:red">{{ $message }}</strong>
             @enderror
-
+            <form action="" method="get" class="mb-3">
+                <div class="row">
+                    <div class="col">
+                        <select name="divisi" id="divisi" class="form-control">
+                            <option disabled selected>-- Pilih Divisi --</option>
+                            <option {{ request('divisi') == 'all' ? 'selected' : '' }} value="all">All</option>
+                            <option {{ request('divisi') == 'Mapping' ? 'selected' : '' }} value="Mapping">Mapping</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i></button>
+                    </div>
+                </div>
+            </form>
             <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah">Tambah</button>
 
             <table id="dataTable" class="table table-bordered" cellspacing="0">
@@ -29,7 +42,7 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>No Hp</th>
-                        <th>Posisi</th>
+                        <th>Divisi</th>
                         <th>Tgl Masuk</th>
                         <th>Tgl Bayar</th>
                         <th>Nominal</th>
@@ -42,7 +55,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $gj->user->karyawan->nama }}</td>
                         <td>{{ $gj->user->karyawan->nohp }}</td>
-                        <td>{{ $gj->user->level == 'U' ? 'Karyawan' : 'Admin' }}</td>
+                        <td>{{ $gj->user->karyawan->divisi }}</td>
                         <td>{{ $gj->tgl_masuk }}</td>
                         <td>{{ $gj->tgl_bayar }}</td>
                         <td>{{ $gj->gaji }}</td>
@@ -119,7 +132,7 @@
                     <div class="form-group">
                         <label for="nama">Nama</label>
                         <select name="user" id="user" class="form-control">
-                            <option disabled selected>-- Pilih User --</option>
+                            <option disabled selected>-- Pilih Karyawan --</option>
                             @foreach($users as $user)
                             <option value="{{ $user->id }}">{{ $user->karyawan->nama }}</option>
                             @endforeach

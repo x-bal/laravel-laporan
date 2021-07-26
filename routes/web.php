@@ -101,6 +101,7 @@ Route::prefix('report')->group(function () {
     });
 
     Route::get('akumulasi', 'ReportController@akumulasi');
+    Route::get('cuti', 'ReportController@cuti');
 });
 
 // Route Kehadiran
@@ -114,6 +115,9 @@ Route::resource('/setting', 'JenisController');
 
 // Route Karyawan
 Route::resource('karyawan', 'KaryawanController');
+
+// Route bendahara
+Route::resource('bendahara', 'BendaharaController');
 
 // Route Gaji
 Route::get('/gaji/laporan', 'GajiController@laporan')->name('gaji.laporan');

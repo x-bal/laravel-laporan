@@ -1,5 +1,6 @@
 @extends('layouts.template')
 @section('content')
+@if(auth()->user()->level == 'A')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Laporan</h6>
@@ -18,6 +19,7 @@
         </div>
     </div>
 </div>
+@endif
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Laporan Karyawan</h6>
@@ -26,6 +28,7 @@
         <div class="row">
             <div class="col-md-6">
                 <a href="{{url('report/akumulasi')}}" class="btn btn-primary form-control mt-2">Laporan Akumulasi</a>
+                <a href="{{url('report/cuti')}}" class="btn btn-primary form-control mt-2">Laporan Cuti Tahunan</a>
             </div>
             <div class="col-md-6">
                 <a href="{{ route('gaji.laporan') }}" class="btn btn-primary form-control mt-2">Laporan Gaji Karyawan</a>

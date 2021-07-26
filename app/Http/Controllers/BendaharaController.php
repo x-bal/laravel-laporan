@@ -2,35 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Karyawan;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class KaryawanController extends Controller
+class BendaharaController extends Controller
 {
     public function index()
     {
-        $users = User::with('karyawan')->where('level', 'U')->get();
-        if (request('divisi')) {
-            if (request('divisi') == 'all') {
-                $karyawan = Karyawan::with('user')->whereHas('user', function ($query) {
-                    return $query->where('level', '!=', 'A');
-                })->get();
-                return view('karyawan.laporan', compact('karyawan'));
-            }
+        $bendahara = User::with('karyawan')->where('level', 'B')->get();
 
-            $karyawan = Karyawan::with('user')->where('divisi', request('divisi'))->get();
-
-            return view('karyawan.laporan', compact('karyawan'));
-        }
-
-        return view('karyawan.index', compact('users'));
+        return view('bendahara.index', compact('bendahara'));
     }
 
     public function create()
     {
-        return view('karyawan.create');
+        return view('bendahara.create');
     }
 
     public function store(Request $request)
@@ -50,7 +37,7 @@ class KaryawanController extends Controller
         $user = User::create([
             'email' => request('email'),
             'password' => Hash::make(request('password')),
-            'level' => 'U',
+            'level' => 'B',
         ]);
 
         $user->karyawan()->create([
@@ -63,21 +50,26 @@ class KaryawanController extends Controller
             'alamat' => request('alamat'),
         ]);
 
-        return redirect()->route('karyawan.index')->with('masuk', 'Data Karyawan berhasil ditambahkan');
+        $user->gaji()->updateOrCreate([
+            'user_id' => $user->id,
+            'gaji' => 0
+        ]);
+
+        return redirect()->route('bendahara.index')->with('masuk', 'Data Bendahara berhasil ditambahkan');
     }
 
-    public function show(Karyawan $karyawan)
+    public function show(User $user)
     {
         //
     }
 
-    public function edit($id)
+    public function edit(User $bendahara)
     {
-        $user = User::with('karyawan')->where('id', $id)->first();
-        return view('karyawan.edit', compact('user'));
+        $bendahara = User::with('karyawan')->where('id', $bendahara->id)->first();
+        return view('bendahara.edit', compact('bendahara'));
     }
 
-    public function update($id)
+    public function update(Request $request, User $bendahara)
     {
         request()->validate([
             'nama' => 'required',
@@ -90,21 +82,20 @@ class KaryawanController extends Controller
             'divisi' => 'required',
         ]);
 
-        $user = User::with('karyawan')->where('id', $id)->first();
 
         if (request('password') != null) {
-            $user->update([
+            $bendahara->update([
                 'email' => request('email'),
                 'password' => Hash::make(request('password')),
             ]);
         } else {
-            $user->update([
+            $bendahara->update([
                 'email' => request('email'),
-                'password' => $user->password,
+                'password' => $bendahara->password,
             ]);
         }
 
-        $user->karyawan()->update([
+        $bendahara->karyawan()->update([
             'id_karyawan' => request('id_karyawan'),
             'divisi' => request('divisi'),
             'nama' => request('nama'),
@@ -114,15 +105,19 @@ class KaryawanController extends Controller
             'alamat' => request('alamat'),
         ]);
 
-        return redirect()->route('karyawan.index')->with('masuk', 'Data Karyawan berhasil diupdate');
+        $bendahara->gaji()->updateOrCreate([
+            'user_id' => $bendahara->user_id,
+            'gaji' => 0
+        ]);
+
+        return redirect()->route('bendahara.index')->with('masuk', 'Data Bendahara berhasil diupdate');
     }
 
-    public function destroy($id)
+    public function destroy(User $bendahara)
     {
-        $user = User::find($id);
-        $user->karyawan()->delete();
-        $user->delete();
+        $bendahara->karyawan()->delete();
+        $bendahara->delete();
 
-        return redirect()->route('karyawan.index')->with('masuk', 'Data Karyawan berhasil didelete');
+        return redirect()->route('bendahara.index')->with('masuk', 'Data Bendahara berhasil didelete');
     }
 }

@@ -39,6 +39,7 @@ class UserController extends Controller
             'user_id' => $user->id,
             'nama' => request('nama'),
             'jk' => request('jk'),
+            'gaji' => 0
         ]);
 
         return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
