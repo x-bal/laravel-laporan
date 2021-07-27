@@ -37,7 +37,7 @@ class KaryawanController extends Controller
     {
         request()->validate([
             'nama' => 'required',
-            'id_karyawan' => 'required',
+            'id_karyawan' => 'required|unique:karyawans',
             'divisi' => 'required',
             'email' => 'required',
             'password' => 'required',
@@ -79,9 +79,11 @@ class KaryawanController extends Controller
 
     public function update($id)
     {
+        $user = User::with('karyawan')->where('id', $id)->first();
+
         request()->validate([
             'nama' => 'required',
-            'id_karyawan' => 'required',
+            'id_karyawan' => 'required|unique:karyawans,id_karyawan,' . $user->karyawan->id,
             'email' => 'required',
             'jk' => 'required',
             'nohp' => 'required',
@@ -90,7 +92,6 @@ class KaryawanController extends Controller
             'divisi' => 'required',
         ]);
 
-        $user = User::with('karyawan')->where('id', $id)->first();
 
         if (request('password') != null) {
             $user->update([

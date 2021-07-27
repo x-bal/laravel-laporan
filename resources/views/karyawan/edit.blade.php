@@ -42,8 +42,8 @@
                     <div class="form-group">
                         <label for="jk">Jenis Kelamin</label>
                         <select name="jk" id="jk" class="form-control">
-                            <option {{ $user->karyawan->jk == 'P' ? 'selected' : '' }} value="P">Perempuan</option>
-                            <option {{ $user->karyawan->jk == 'L' ? 'selected' : '' }} value="L">Laki - laki</option>
+                            <option {{ $user->karyawan->jk == 'Perempuan' ? 'selected' : '' }} value="Perempuan">Perempuan</option>
+                            <option {{ $user->karyawan->jk == 'Laki-Laki' ? 'selected' : '' }} value="Laki-Laki">Laki - laki</option>
                         </select>
 
                         @error('jk')
@@ -62,7 +62,11 @@
                     </div>
                     <div class="form-group">
                         <label for="divisi">Divisi</label>
-                        <input type="text" name="divisi" class="form-control" value="{{ $user->karyawan->divisi }}">
+                        <select name="divisi" id="divisi" class="form-control">
+                            <option disabled selected>-- Pilih Divisi --</option>
+                            <option {{ $user->karyawan->divisi == 'Mapping' ? 'selected' : '' }} value="Mapping">Mapping</option>
+                            <option {{ $user->karyawan->divisi == 'Property Marketing' ? 'selected' : '' }} value="Property Marketing">Property Marketing</option>
+                        </select>
 
                         @error('divisi')
                         <small class="text-danger">{{ $message }}</small>

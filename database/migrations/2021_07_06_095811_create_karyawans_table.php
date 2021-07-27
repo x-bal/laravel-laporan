@@ -18,7 +18,7 @@ class CreateKaryawansTable extends Migration
             $table->string('id_karyawan', 25);
             $table->foreignId('user_id');
             $table->string('nama');
-            $table->enum('jk', ['L', 'P'])->nullable();
+            $table->enum('jk', ['Laki-Laki', 'Perempuan'])->nullable();
             $table->text('alamat');
             $table->string('pendidikan');
             $table->string('nohp', 15);

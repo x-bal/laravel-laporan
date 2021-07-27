@@ -45,8 +45,8 @@
                     <div class="form-group">
                         <label for="jk">Jenis Kelamin</label>
                         <select name="jk" id="jk" class="form-control">
-                            <option value="P">Perempuan</option>
-                            <option value="L" selected>Laki - laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                            <option value="Laki-Laki" selected>Laki - laki</option>
                         </select>
 
                         @error('jk')
@@ -65,7 +65,11 @@
                     </div>
                     <div class="form-group">
                         <label for="divisi">Divisi</label>
-                        <input type="text" name="divisi" class="form-control">
+                        <select name="divisi" id="divisi" class="form-control">
+                            <option disabled selected>-- Pilih Divisi --</option>
+                            <option value="Mapping">Mapping</option>
+                            <option value="Property Marketing">Property Marketing</option>
+                        </select>
 
                         @error('divisi')
                         <small class="text-danger">{{ $message }}</small>
