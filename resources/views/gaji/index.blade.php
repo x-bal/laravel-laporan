@@ -27,6 +27,7 @@
                             <option disabled selected>-- Pilih Divisi --</option>
                             <option {{ request('divisi') == 'all' ? 'selected' : '' }} value="all">All</option>
                             <option {{ request('divisi') == 'Mapping' ? 'selected' : '' }} value="Mapping">Mapping</option>
+                            <option {{ request('divisi') == 'Property Marketing' ? 'selected' : '' }} value="Property Marketing">Property Marketing</option>
                         </select>
                     </div>
                     <div class="col">
@@ -61,7 +62,11 @@
                         <td>{{ $gj->gaji }}</td>
                         <td class="text-center">
                             <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit{{ $gj->id }}"><i class="fas fa-edit"></i></a>
-                            <a href="" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin ?')"><i class="fas fa-trash"></i></a>
+                            <form action="{{ route('gaji.destroy', $gj->id) }}" method="post" style="display: inline;" onclick="return confirm('Hapus data?')">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            </form>
                         </td>
                     </tr>
 

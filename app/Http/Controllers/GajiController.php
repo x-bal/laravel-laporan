@@ -14,7 +14,7 @@ class GajiController extends Controller
 {
     public function index()
     {
-        $gaji = Gaji::get();
+        $gaji = Gaji::with('user')->get();
         $users = User::with('karyawan')->get();
 
         if (request('divisi')) {
@@ -25,7 +25,7 @@ class GajiController extends Controller
                 return view('gaji.print', compact('gaji'));
             }
 
-            $gaji = User::with('karyawan', 'gaji', 'karyawan')->whereHas('karyawan', function ($query) {
+            $gaji = User::with('karyawan', 'gaji',)->whereHas('karyawan', function ($query) {
                 return $query->where('divisi', request('divisi'));
             })->get();
 
@@ -64,7 +64,9 @@ class GajiController extends Controller
 
     public function destroy(Gaji $gaji)
     {
-        //
+        $gaji->delete();
+
+        return redirect()->back()->with('masuk', 'Gaji Karyawan berhasil didelete');
     }
 
     public function laporan()
