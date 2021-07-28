@@ -39,7 +39,6 @@ class UserController extends Controller
             'user_id' => $user->id,
             'nama' => request('nama'),
             'jk' => request('jk'),
-            'gaji' => 0
         ]);
 
         return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
@@ -62,8 +61,11 @@ class UserController extends Controller
         }
 
         $user->update([
-            'nama' => $request->nama,
             'email' => $request->email,
+        ]);
+
+        $user->karyawan()->update([
+            'nama' => $request->nama,
             'jk' => $request->jk,
         ]);
 

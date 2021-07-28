@@ -21,11 +21,11 @@
                 <label for="">Jenis Kelamin</label>
                 <select name="jk" id="jk" class="form-control">
                     @if($user->karyawan->jk== 'P')
-                    <option value="P" selected>Perempuan</option>
-                    <option value="L">Laki - laki</option>
+                    <option value="Perempuan" selected>Perempuan</option>
+                    <option value="Laki-Laki">Laki - laki</option>
                     @else
-                    <option value="P">Perempuan</option>
-                    <option value="L" selected>Laki - laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                    <option value="Laki-Laki" selected>Laki - laki</option>
                     @endif
                 </select>
             </div>
