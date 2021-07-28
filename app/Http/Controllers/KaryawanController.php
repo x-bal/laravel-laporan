@@ -15,7 +15,7 @@ class KaryawanController extends Controller
         if (request('divisi')) {
             if (request('divisi') == 'all') {
                 $karyawan = Karyawan::with('user')->whereHas('user', function ($query) {
-                    return $query->where('level', '!=', 'A');
+                    return $query->where('level', 'U');
                 })->get();
                 return view('karyawan.laporan', compact('karyawan'));
             }

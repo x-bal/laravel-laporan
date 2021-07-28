@@ -21,7 +21,7 @@
             <strong style="color:red">{{ $message }}</strong>
             @enderror
 
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah">Tambah</button>
+            <!-- <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah">Tambah</button> -->
 
             <table id="dataTable" class="table table-bordered" cellspacing="0">
                 <thead>

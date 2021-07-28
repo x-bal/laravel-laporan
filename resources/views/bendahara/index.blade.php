@@ -46,12 +46,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>ID Karyawan</th>
+                        <th>ID Bendahara</th>
                         <th>Nama</th>
                         <th>No Hp</th>
                         <th>JK</th>
                         <th>Jabatan</th>
-                        <th>Divisi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -64,7 +63,6 @@
                         <td>{{$bend->karyawan->nohp }}</td>
                         <td>{{$bend->karyawan->jk }}</td>
                         <td>Bendahara</td>
-                        <td>{{$bend->karyawan->divisi}}</td>
                         <td>
                             <a href="{{ route('bendahara.edit', $bend->id) }}" class="btn btn-primary btn-sm ml-2">Edit</a>
                             <form action="{{ route('bendahara.destroy', $bend->id) }}" method="post" style="display: inline;">

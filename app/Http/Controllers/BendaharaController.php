@@ -25,7 +25,6 @@ class BendaharaController extends Controller
         request()->validate([
             'nama' => 'required',
             'id_karyawan' => 'required|unique:karyawans',
-            'divisi' => 'required',
             'email' => 'required',
             'password' => 'required',
             'jk' => 'required',
@@ -79,7 +78,6 @@ class BendaharaController extends Controller
             'nohp' => 'required',
             'pendidikan' => 'required',
             'alamat' => 'required',
-            'divisi' => 'required',
         ]);
 
 

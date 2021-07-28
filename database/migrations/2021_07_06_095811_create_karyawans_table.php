@@ -22,7 +22,7 @@ class CreateKaryawansTable extends Migration
             $table->text('alamat');
             $table->string('pendidikan');
             $table->string('nohp', 15);
-            $table->string('divisi');
+            $table->string('divisi')->nullable();
             $table->timestamps();
         });
     }

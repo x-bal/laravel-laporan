@@ -32,6 +32,7 @@
                             <option disabled selected>-- Pilih Divisi --</option>
                             <option {{ request('divisi') == 'all' ? 'selected' : '' }} value="all">All</option>
                             <option {{ request('divisi') == 'Mapping' ? 'selected' : '' }} value="Mapping">Mapping</option>
+                            <option {{ request('divisi') == 'Property Marketing' ? 'selected' : '' }} value="Property Marketing">Property Marketing</option>
                         </select>
                     </div>
                     <div class="col">

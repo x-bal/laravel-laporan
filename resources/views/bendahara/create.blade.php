@@ -64,19 +64,6 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="divis">Divisi</label>
-                        <select name="divisi" id="divisi" class="form-control">
-                            <option disabled selected>-- Pilih Divisi --</option>
-                            <option value="Mapping">Mapping</option>
-                            <option value="Property Marketing">Property Marketing</option>
-                        </select>
-
-
-                        @error('divisi')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group">
                         <label for="pendidikan">Pendidikan Terakhir</label>
                         <input type="text" name="pendidikan" class="form-control">
 
