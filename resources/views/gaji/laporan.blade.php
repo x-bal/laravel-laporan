@@ -74,7 +74,7 @@
                                 <td>{{ $pnd->user->karyawan->nama }}</td>
                                 <td>{{ $pnd->tanggal }}</td>
                                 <td>{{ $pnd->keterangan }}</td>
-                                <td>{{ $pnd->jenis->nominal }}</td>
+                                <td>@currency($pnd->jenis->nominal)</td>
                             </tr>
                             @php
                             $totalPend += $pnd->jenis->nominal
@@ -84,7 +84,7 @@
 
                         <tfoot>
                             <tr class="text-right">
-                                <td colspan="5">Total Bonus : Rp. {{ $totalPend }}</td>
+                                <td colspan="5">Total Bonus : @currency($totalPend)</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -112,7 +112,7 @@
                                 <td>{{ $pnr->user->karyawan->nama }}</td>
                                 <td>{{ $pnr->tanggal }}</td>
                                 <td>{{ $pnr->keterangan }}</td>
-                                <td>{{ $pnr->jenis->nominal }}</td>
+                                <td>@currency($pnr->jenis->nominal)</td>
                             </tr>
 
                             @php
@@ -123,7 +123,7 @@
 
                         <tfoot>
                             <tr class="text-right">
-                                <td colspan="5">Total Pengurangan : Rp. {{ $totalPeng }}</td>
+                                <td colspan="5">Total Pengurangan : @currency($totalPeng)</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -133,14 +133,14 @@
             $totalPem = $gaji->gaji + $totalPend - $totalPeng
             @endphp
 
-            <button class="btn btn-info mt-3">Gaji Karyawan : Rp. {{ $gaji->gaji }}</button>
-            <button class="btn btn-danger mt-3">BPJS : Rp. {{ $bpjs->nominal }}</button>
+            <button class="btn btn-info mt-3">Gaji Karyawan : @currency($gaji->gaji)</button>
+            <button class="btn btn-danger mt-3">BPJS : @currency($bpjs->nominal)</button>
             @if(auth()->user()->level == 'U')
             <a href="/gaji/generate/{{ request('tanggal') }}" class="btn btn-primary mt-3"><i class="fas fa-download"></i> Generate Laporan</a>
             @else
             <a href="/gaji/generate/{{ request('user') }}/{{ request('bulan') }}" class="btn btn-primary mt-3"><i class="fas fa-download"></i> Generate Laporan</a>
             @endif
-            <div class="alert alert-success mt-3">Total Yang Harus Dibayar : Rp. {{ $totalPem - $bpjs->nominal }}</div>
+            <div class="alert alert-success mt-3">Total Yang Harus Dibayar : @currency($totalPem - $bpjs->nominal)</div>
             @endif
         </div>
     </div>

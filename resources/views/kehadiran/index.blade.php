@@ -24,8 +24,9 @@
             <table id="dataTable" class="table table-bordered" cellspacing="0">
                 <thead>
                     <tr>
-                        @if(request('jenis') == 1)
+                        @if(request('jenis') == 1 || request('jenis') == 2)
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Tanggal</th>
                         <th>Keterangan</th>
@@ -33,6 +34,7 @@
                         <th class="text-center">Konfirmasi</th>
                         @else
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Dari</th>
                         <th>Sampai</th>
@@ -45,14 +47,16 @@
                 <tbody>
                     @foreach ($kehadiran as $hadir)
                     <tr>
-                        @if(request('jenis') == 1)
+                        @if(request('jenis') == 1 || request('jenis') == 2)
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $hadir->user->karyawan->id_karyawan }}</td>
                         <td>{{ $hadir->user->karyawan->nama }}</td>
                         <td>{{ $hadir->tanggal }}</td>
                         <td>{{ $hadir->keterangan }}</td>
                         <td>{{ $hadir->status }}</td>
                         @else
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $hadir->user->karyawan->id_karyawan }}</td>
                         <td>{{ $hadir->user->karyawan->nama }}</td>
                         <td>{{ $hadir->dari }}</td>
                         <td>{{ $hadir->sampai }}</td>
@@ -85,8 +89,9 @@
             <table id="dataTable" class="table table-bordered" cellspacing="0">
                 <thead>
                     <tr>
-                        @if(request('jenis') == 1)
+                        @if(request('jenis') == 1 || request('jenis') == 2)
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Tanggal</th>
                         <th>Keterangan</th>
@@ -94,6 +99,7 @@
                         <th class="text-center">Aksi</th>
                         @else
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Dari</th>
                         <th>Sampai</th>
@@ -106,14 +112,16 @@
                 <tbody>
                     @foreach ($accept as $acc)
                     <tr>
-                        @if(request('jenis') == 1)
+                        @if(request('jenis') == 1 || request('jenis') == 2)
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $acc->user->karyawan->id_karyawan }}</td>
                         <td>{{ $acc->user->karyawan->nama }}</td>
                         <td>{{ $acc->tanggal }}</td>
                         <td>{{ $acc->keterangan }}</td>
                         <td>{{ $acc->status }}</td>
                         @else
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $acc->user->karyawan->id_karyawan }}</td>
                         <td>{{ $acc->user->karyawan->nama }}</td>
                         <td>{{ $acc->dari }}</td>
                         <td>{{ $acc->sampai }}</td>
@@ -145,8 +153,9 @@
             <table id="dataTable" class="table table-bordered" cellspacing="0">
                 <thead>
                     <tr>
-                        @if(request('jenis') == 1)
+                        @if(request('jenis') == 1 || request('jenis') == 2)
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Tanggal</th>
                         <th>Keterangan</th>
@@ -154,6 +163,7 @@
                         <th class="text-center">Aksi</th>
                         @else
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Dari</th>
                         <th>Sampai</th>
@@ -166,14 +176,16 @@
                 <tbody>
                     @foreach ($reject as $rjc)
                     <tr>
-                        @if(request('jenis') == 1)
+                        @if(request('jenis') == 1 || request('jenis') == 2)
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $rjc->user->karyawan->id_karyawan }}</td>
                         <td>{{ $rjc->user->karyawan->nama }}</td>
                         <td>{{ $rjc->tanggal }}</td>
                         <td>{{ $rjc->keterangan }}</td>
                         <td>{{ $rjc->status }}</td>
                         @else
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $rjc->user->karyawan->id_karyawan }}</td>
                         <td>{{ $rjc->user->karyawan->nama }}</td>
                         <td>{{ $rjc->dari }}</td>
                         <td>{{ $rjc->sampai }}</td>

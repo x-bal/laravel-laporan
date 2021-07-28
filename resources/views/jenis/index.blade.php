@@ -37,7 +37,7 @@
                         @foreach($jenis as $jns)
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $jns->name }}</td>
-                        <td>{{ $jns->nominal }}</td>
+                        <td>@currency($jns->nominal)</td>
                         <td class="text-center">
                             <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit{{ $jns->id }}"><i class="fas fa-edit"></i></a>
                         </td>

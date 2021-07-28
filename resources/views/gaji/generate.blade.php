@@ -13,49 +13,23 @@
 </head>
 
 <body>
-    <header style="border-bottom: 3px solid black; justify-content: center;">
-        <div class="logo">
-            <img src="https://i.postimg.cc/GpJD05R7/logo-pen.png" alt="" width="100px" style="margin-left: 50px;">
-        </div>
-        <p style="text-align: center; margin-top: -100px;">
-            <b style="font-size: 14px;">CV. PENINSULA ABADI</b><br>
-        </p>
-        <p style="text-align: center; font-size: 11px;">
-            Jl. H Anang Adenansi No 4 RT 01 RW 001, Kel. Teluk Dalam, Kec. Banjarmasin Tengah,<br> Kota Banjarmasin, Prov. Kalimantan Selatan. <br>
-            Telp. (085) 696338649 Fax. (025) 1231212312 <br>
-            Email : peninsula.abadi@gmail.com.
-        </p>
-    </header>
+
+    <x-header></x-header>
 
     <div class="content" style="width: 90%; margin-left: 100px; margin-right: 100px; margin-top: 40px; ">
         <table>
             <tr>
-                <td>Hal</td>
+                <td width="200px">Hal</td>
                 <td> : </td>
-                <td>SLIP GAJI</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><b>SLIP GAJI</b></td>
             </tr>
             <tr>
-                <td>Gaji Bulan</td>
+                <td width="200px">Gaji Bulan Tanggal</td>
                 <td> : </td>
-                <td width="300px">{{ \Carbon\Carbon::parse(request('tanggal'))->format('M') }}</td>
-                <td style="margin-left: 20px;">Tanggal</td>
-                <td> : </td>
-                <td>{{ \Carbon\Carbon::parse(request('tanggal'))->format('d') }}</td>
+                <td width="300px">{{ \Carbon\Carbon::parse(request('tanggal'))->format('d F Y') }}</td>
             </tr>
             <tr>
-                <td>Nama Karyawan</td>
-                <td> : </td>
-                <td width="300px">
-                    @if(auth()->user()->level == 'U')
-                    {{ auth()->user()->karyawan->nama }}
-                    @else
-                    {{ $user->karyawan->nama }}
-                    @endif
-                </td>
-                <td style="margin-left: 20px;">ID Karyawan</td>
+                <td style="margin-left: 20px;" width="100px">ID Karyawan</td>
                 <td> : </td>
                 <td>
                     @if(auth()->user()->level == 'U')
@@ -66,7 +40,18 @@
                 </td>
             </tr>
             <tr>
-                <td>Jabatan</td>
+                <td width="200px">Nama Karyawan</td>
+                <td> : </td>
+                <td width="300px">
+                    @if(auth()->user()->level == 'U')
+                    {{ auth()->user()->karyawan->nama }}
+                    @else
+                    {{ $user->karyawan->nama }}
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td width="200px">Jabatan</td>
                 <td> : </td>
                 <td>
                     @if(auth()->user()->level == 'U')
@@ -107,22 +92,22 @@
         @endphp
         @endif
         @endforeach
-        <p style="margin-top: 30px;"><u>PENDAPATAN</u></p>
+        <p style="margin-top: 30px;"><u><b>PENDAPATAN</b> </u></p>
         <table>
             <tr>
-                <td>Gaji Pokok</td>
+                <td width="200px">Gaji Pokok</td>
                 <td> : </td>
-                <td>Rp. {{ $gaji }}</td>
+                <td>@currency($gaji)</td>
             </tr>
             <tr>
-                <td>Lembur</td>
+                <td width="200px">Lembur</td>
                 <td> : </td>
-                <td>Rp. {{ $totalLem }}</td>
+                <td>@currency($totalLem)</td>
             </tr>
             <tr>
-                <td>Total Pendapatan</td>
+                <td width="200px">Total Pendapatan</td>
                 <td> : </td>
-                <td>Rp. {{ $gaji + $totalPend }}</td>
+                <td>@currency($gaji + $totalPend)</td>
             </tr>
         </table>
 
@@ -132,29 +117,39 @@
         $totalPeng += $pnr->jenis->nominal
         @endphp
         @endforeach
-        <p style="margin-top: 30px;"><u>PENGURANGAN</u></p>
+        <p style="margin-top: 30px;"><u><b>PENGURANGAN</b></u></p>
         <table>
             <tr>
-                <td>Ijin/Sakit</td>
+                <td width="200px">Ijin/Sakit</td>
                 <td> : </td>
-                <td>Rp. {{ $totalPeng }} </td>
+                <td>@currency($totalPeng) </td>
             </tr>
             <tr>
-                <td>BPJS</td>
+                <td width="200px">BPJS</td>
                 <td> : </td>
-                <td>Rp. {{ $bpjs->nominal }}</td>
+                <td>@currency($bpjs->nominal)</td>
             </tr>
             <tr>
-                <td>Total Pengurangan</td>
+                <td width="200px">Total Pengurangan</td>
                 <td> : </td>
                 @php
                 $totpeng = $totalPeng + $bpjs->nominal
                 @endphp
-                <td>Rp. {{ $totalPeng }}</td>
+                <td>@currency($totalPeng)</td>
             </tr>
         </table>
 
-        <p style="margin-top: 30px;"><u>TOTAL DITERIMA KARYAWAN</u> Rp. {{ ($gaji + $totalPend) - ($totalPeng + $bpjs->nominal) }}</p>
+        <p style="margin-top: 30px;"><u><b>TOTAL DITERIMA KARYAWAN</b></u></p>
+        <table>
+            <tr>
+                <td width="200px">Total diterima</td>
+                <td> : </td>
+                @php
+                $totpeng = $totalPeng + $bpjs->nominal
+                @endphp
+                <td>@currency(($gaji + $totalPend) - ($totalPeng + $bpjs->nominal))</td>
+            </tr>
+        </table>
 
         <div class="footer" style="margin-top: 150px; position: absolute; display: inline;">
             <table>

@@ -20,7 +20,7 @@ class GajiController extends Controller
         if (request('divisi')) {
 
             if (request('divisi') == 'all') {
-                $gaji = User::with('karyawan', 'gaji', 'karyawan')->where('level', '!=', 'A')->get();
+                $gaji = User::with('karyawan', 'gaji')->where('level', '!=', 'A')->get();
 
                 return view('gaji.print', compact('gaji'));
             }
@@ -104,7 +104,7 @@ class GajiController extends Controller
         $id = auth()->user()->id;
         $gaji = Gaji::where('user_id', $id)->first();
 
-        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '5')->whereMonth('tanggal', '=', $tgl)->get();
+        $pendapatan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
 
         $pengurangan = Kehadiran::with('user', 'jenis')->where('user_id', $id)->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $tgl)->get();
 

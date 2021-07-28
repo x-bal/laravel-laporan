@@ -122,6 +122,7 @@ class KaryawanController extends Controller
     {
         $user = User::find($id);
         $user->karyawan()->delete();
+        $user->gaji()->delete();
         $user->delete();
 
         return redirect()->route('karyawan.index')->with('masuk', 'Data Karyawan berhasil didelete');
