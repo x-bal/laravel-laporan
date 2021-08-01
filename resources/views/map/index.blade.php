@@ -30,13 +30,14 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>ID Map</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Status</th>
                         <th>Date Added</th>
                         <th>Date Adopted</th>
                         <th>Date Expired</th>
                         <th>Priority</th>
-                        <th>ID Karyawan</th>
                         <th>Karyawan</th>
                         <th>Aksi</th>
                     </tr>
@@ -45,13 +46,14 @@
                     @foreach ($map as $i => $u)
                     <tr>
                         <td>{{++$i}}</td>
+                        <td>{{$u->id_map}}</td>
+                        <td>{{$u->user->karyawan->id_karyawan ?? ''}}</td>
                         <td>{{$u->name}}</td>
                         <td>{{$u->status}}</td>
                         <td>{{date('Y-m-d',strtotime($u->created_at))}}</td>
                         <td>{{$u->date_adopted}}</td>
                         <td>{{$u->date_expired}}</td>
                         <td>{{$u->priority}}</td>
-                        <td>{{$u->user->karyawan->id_karyawan ?? ''}}</td>
                         <td>{{$u->user->karyawan->nama ?? ''}}</td>
                         <td>
                             <a href="{{url('/map/edit/'.$u->id)}}" class="btn btn-primary btn-sm ml-2">Edit</a>
@@ -78,6 +80,10 @@
             <div class="modal-body">
                 <form action="{{url('/map/store')}}" method="post">
                     {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="id_map">ID Map</label>
+                        <input type="text" name="id_map" class="form-control" required>
+                    </div>
                     <div class="form-group">
                         <label for="name">Nama</label>
                         <input type="text" name="name" class="form-control" required>

@@ -41,6 +41,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>No Hp</th>
                         <th>Divisi</th>
@@ -54,6 +55,7 @@
                     <tr>
                         @foreach($gaji as $gj)
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $gj->user->karyawan->id_karyawan }}</td>
                         <td>{{ $gj->user->karyawan->nama }}</td>
                         <td>{{ $gj->user->karyawan->nohp }}</td>
                         <td style="text-align: center;">{{ $gj->user->karyawan->divisi ?? '-' }}</td>

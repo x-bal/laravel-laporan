@@ -24,6 +24,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>ID Map</th>
                         <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Map</th>
@@ -37,6 +38,7 @@
                     @foreach ($error as $i => $u)
                     <tr>
                         <td>{{++$i}}</td>
+                        <td>{{$u->workMap->map->id_map}}</td>
                         <td>{{$u->workMap->user->karyawan->id_karyawan}}</td>
                         <td>{{$u->workMap->user->karyawan->nama}}</td>
                         <td>{{$u->workMap->map->name}}</td>

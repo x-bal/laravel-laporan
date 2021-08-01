@@ -24,12 +24,13 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>ID Map</th>
+                        <th>ID Pengerja</th>
                         <th>Nama Map</th>
                         <th>Status</th>
                         <th>Date Adopted</th>
                         <th>Date Expired</th>
                         <th>Priority</th>
-                        <th>ID Pengerja</th>
                         <th>Pengerja</th>
                         <th>Finish On</th>
                     </tr>
@@ -38,12 +39,13 @@
                     @foreach ($mapFinish as $i => $u)
                     <tr>
                         <td>{{++$i}}</td>
+                        <td>{{$u->map->id_map}}</td>
+                        <td>{{$u->user->karyawan->id_karyawan}}</td>
                         <td>{{$u->map->name}}</td>
                         <td>{{$u->map->status}}</td>
                         <td>{{$u->map->date_adopted}}</td>
                         <td>{{$u->map->date_expired}}</td>
                         <td>{{$u->map->priority}}</td>
-                        <td>{{$u->user->karyawan->id_karyawan}}</td>
                         <td>{{$u->user->karyawan->nama}}</td>
                         <td>{{$u->finish_on}}</td>
                     </tr>

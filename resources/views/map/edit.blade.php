@@ -8,9 +8,13 @@
     <div class="card-body">
         <form action="{{url('/map/update')}}" method="post">
             @csrf
+            <input type="hidden" name="id" value="{{$map->id}}">
+            <div class="form-group">
+                <label for="id_map">ID Map</label>
+                <input type="text" name="id_map" class="form-control" value="{{$map->id_map}}" required>
+            </div>
             <div class="form-group">
                 <label for="name">Nama</label>
-                <input type="hidden" name="id" value="{{$map->id}}">
                 <input type="text" name="name" class="form-control" value="{{$map->name}}" required>
             </div>
             <div class="form-group">
@@ -20,7 +24,7 @@
                     <option value="adopted" selected>Adopted</option>
                     <option value="draft">Draft</option>
                     @else
-                    <option value="adopted" >Adopted</option>
+                    <option value="adopted">Adopted</option>
                     <option value="draft" selected>Draft</option>
                     @endif
                 </select>

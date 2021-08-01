@@ -15,6 +15,7 @@ class CreateMaps extends Migration
     {
         Schema::create('maps', function (Blueprint $table) {
             $table->id();
+            $table->string('id_map');
             $table->integer('user_id')->nullable();
             $table->string('name');
             $table->string('status');

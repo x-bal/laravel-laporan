@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>No</th>
+            <th>ID Map</th>
             <th>ID Karyawan</th>
             <th>Nama</th>
             <th>Email</th>
@@ -15,6 +16,7 @@
         @foreach ($workMap as $i)
         <tr>
             <td>{{ $loop->iteration }}</td>
+            <td>{{$i->map->id_map}}</td>
             <td>{{$i->user->karyawan->id_karyawan}}</td>
             <td>{{$i->user->karyawan->nama}}</td>
             <td>{{$i->user->email}}</td>

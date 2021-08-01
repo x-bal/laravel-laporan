@@ -22,6 +22,7 @@ class MapController extends Controller
     public function store(Request $request)
     {
         Map::create([
+            'id_map' => $request->id_map,
             'name' => $request->name,
             'status' => $request->status,
             'date_adopted' => $request->date_adopted,
@@ -43,6 +44,7 @@ class MapController extends Controller
         $map = Map::find($request->id);
 
         $map->update([
+            'id_map' => $request->id_map,
             'name' => $request->name,
             'status' => $request->status,
             'date_adopted' => $request->date_adopted,

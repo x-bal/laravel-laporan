@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>No</th>
+            <th>ID Map</th>
             <th>ID Karyawan</th>
             <th>Nama</th>
             <th>Map</th>

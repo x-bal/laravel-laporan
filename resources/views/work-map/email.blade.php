@@ -10,6 +10,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Laporan Map Selesai</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,9 +23,39 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Laporan Map Selesai</div>
+                    <div class="card-header">
+                        <h2>Laporan Map Selesai</h2>
+                    </div>
                     <div class="card-body">
-                        {!! $content !!}
+                        <table class="table" border="1" cellspacing="0" cellspacing="10" style="text-align: center; font-size: 14px;">
+                            <thead style="background-color: rgba(0, 0, 0, 0.05);">
+                                <tr>
+                                    <th>ID Map</th>
+                                    <th>ID Pengerja</th>
+                                    <th>Nama Map</th>
+                                    <th>Status</th>
+                                    <th>Date Adopted</th>
+                                    <th>Date Expired</th>
+                                    <th>Priority</th>
+                                    <th>Pengerja</th>
+                                    <th>Finish On</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>{{$content->map->id_map}}</td>
+                                    <td>{{$content->user->karyawan->id_karyawan}}</td>
+                                    <td>{{$content->map->name}}</td>
+                                    <td>{{$content->map->status}}</td>
+                                    <td>{{$content->map->date_adopted}}</td>
+                                    <td>{{$content->map->date_expired}}</td>
+                                    <td>{{$content->map->priority}}</td>
+                                    <td>{{$content->user->karyawan->nama}}</td>
+                                    <td>{{$content->finish_on}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

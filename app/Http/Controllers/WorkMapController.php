@@ -30,8 +30,8 @@ class WorkMapController extends Controller
         WorkMap::create([
             'user_id' => $request->id,
             'map_id' => $request->map_id,
-            'total_map' => $request->total_map,
-            'total_key' => $request->total_key,
+            'total_map' => 0,
+            'total_key' => 0,
             'start_on' => $request->start_on,
             'progress' => 0
         ]);
@@ -111,13 +111,12 @@ class WorkMapController extends Controller
 
     public function sendemail()
     {
-        $map = WorkMap::find(request('map'));
-        $content  = 'Map Selesai | ' . $map->map->name . ' | Pengerja | ' . auth()->user()->karyawan->nama . ' | Tanggal | ' . Carbon::parse($map->finish_on)->format('d-m-Y');
+        $map = WorkMap::where('id', request('map'))->where('user_id', auth()->user()->id)->first();
 
         $data = [
             'subject' => 'Laporan Map Selesai',
             'email' => request('email'),
-            'content' => $content
+            'content' => $map
         ];
 
         Mail::send('work-map.email', $data, function ($message) use ($data) {

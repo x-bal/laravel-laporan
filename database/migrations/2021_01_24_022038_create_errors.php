@@ -18,7 +18,7 @@ class CreateErrors extends Migration
             $table->integer('work_map_id');
             $table->date('date');
             $table->string('image');
-            $table->string('comments');   
+            $table->string('comments');
             $table->timestamps();
         });
     }

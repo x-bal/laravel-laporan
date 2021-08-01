@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>No</th>
+            <th>ID Map</th>
             <th>Nama Map</th>
             <th>Status</th>
             <th>Date Adopted</th>

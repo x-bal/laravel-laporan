@@ -31,6 +31,11 @@
                     <input type="hidden" name="id" value="{{$workMap->id}}">
                     <table class="text-dark">
                         <tr>
+                            <td>ID Karyawan</td>
+                            <td>: &nbsp;</td>
+                            <td>{{Auth::user()->karyawan->id_karyawan}}</td>
+                        </tr>
+                        <tr>
                             <td>Nama</td>
                             <td>: &nbsp;</td>
                             <td>{{Auth::user()->karyawan->nama}}</td>
@@ -39,16 +44,6 @@
                             <td>Nama Map</td>
                             <td>:</td>
                             <td>{{$workMap->map->name}}</td>
-                        </tr>
-                        <tr>
-                            <td>Total map</td>
-                            <td>:</td>
-                            <td>{{$workMap->total_map}}</td>
-                        </tr>
-                        <tr>
-                            <td>Total Key</td>
-                            <td>:</td>
-                            <td>{{$workMap->total_key}}</td>
                         </tr>
                         <tr>
                             <td>Start on</td>
@@ -113,15 +108,7 @@
                     </div>
                     <div class="form-group">
                         <label for="date_adopted">Priority</label>
-                        <input type="text" name="priority" id="priority" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="total_map">Total Map</label>
-                        <input type="number" name="total_map" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="total_key">Total Key</label>
-                        <input type="number" name="total_key" class="form-control" required>
+                        <input type="text" name="priority" id="priority" class="form-control" required readonly>
                     </div>
                     <div class="form-group">
                         <label for="start_on">Start On</label>
