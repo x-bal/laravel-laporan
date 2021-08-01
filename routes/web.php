@@ -121,7 +121,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('bendahara', 'BendaharaController');
 
     // Route Gaji
-    Route::get('/gaji/laporan', 'GajiController@laporan')->name('gaji.laporan');
+    Route::get('/report/laporan', 'GajiController@laporan')->name('gaji.laporan');
     Route::get('/gaji/laporan/karyawan/{tanggal}', 'GajiController@laporanKaryawan')->name('gaji.laporanKaryawan');
     Route::get('/gaji/generate/{tanggal}', 'GajiController@generate')->name('gaji.generate');
     Route::get('/gaji/generate/{id}/{bulan}', 'GajiController@generateAdmin')->name('gaji.generate.admin');
@@ -130,4 +130,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('change-password', 'ChangePasswordController@index');
     Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
+
+    Route::get('lapor-email', 'WorkMapController@laporemail')->name('laporemail');
+    Route::post('send-email', 'WorkMapController@sendemail')->name('sendemail');
 });

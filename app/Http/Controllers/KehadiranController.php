@@ -30,8 +30,17 @@ class KehadiranController extends Controller
 
     public function create()
     {
-        $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->get();
-        return view('kehadiran.create', compact('jenis'));
+        $totalCuti = Kehadiran::where('jeni_id', 4)->where('user_id', auth()->user()->id)->count();
+        $limit = 4;
+        $sisa = $limit - $totalCuti;
+
+        if ($totalCuti >= $limit) {
+            $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->where('name', '!=', 'Cuti')->get();
+        } else {
+            $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->get();
+        }
+
+        return view('kehadiran.create', compact('jenis', 'sisa'));
     }
 
     public function store(Request $request)

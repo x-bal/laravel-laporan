@@ -16,29 +16,22 @@
                     </div>
                     @endif
 
-                    <form action="" method="get" class="mb-3">
+                    <form action="" method="get">
                         <div class="row">
-                            <div class="col">
-                                <select name="bulan" id="bulan" class="form-control">
-                                    <option disabled selected>-- Pilih Bulan --</option>
-                                    <option {{ request('bulan') == '01' ? 'selected' : '' }} value="01">Januari</option>
-                                    <option {{ request('bulan') == '02' ? 'selected' : '' }} value="02">Februari</option>
-                                    <option {{ request('bulan') == '03' ? 'selected' : '' }} value="03">Maret</option>
-                                    <option {{ request('bulan') == '04' ? 'selected' : '' }} value="04">April</option>
-                                    <option {{ request('bulan') == '05' ? 'selected' : '' }} value="05">Mai</option>
-                                    <option {{ request('bulan') == '06' ? 'selected' : '' }} value="06">Juni</option>
-                                    <option {{ request('bulan') == '07' ? 'selected' : '' }} value="07">Juli</option>
-                                    <option {{ request('bulan') == '08' ? 'selected' : '' }} value="08">Agustus</option>
-                                    <option {{ request('bulan') == '09' ? 'selected' : '' }} value="09">September</option>
-                                    <option {{ request('bulan') == '10' ? 'selected' : '' }} value="10">Oktober</option>
-                                    <option {{ request('bulan') == '11' ? 'selected' : '' }} value="11">November</option>
-                                    <option {{ request('bulan') == '12' ? 'selected' : '' }} value="12">Desember</option>
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Mulai Tanggal</label>
+                                    <input type="date" name="req1" class="form-control" required>
+                                </div>
                             </div>
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Sampai Tanggal</label>
+                                    <input type="date" name="req2" class="form-control" required>
+                                </div>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>

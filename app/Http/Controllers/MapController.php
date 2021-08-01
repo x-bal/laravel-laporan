@@ -16,26 +16,26 @@ class MapController extends Controller
     public function index()
     {
         $map = Map::all();
-        return view('map/index',compact('map'));
+        return view('map/index', compact('map'));
     }
 
     public function store(Request $request)
     {
         Map::create([
-            'name'=> $request->name,
+            'name' => $request->name,
             'status' => $request->status,
-            'date_adopted'=>$request->date_adopted,
-            'date_expired'=>$request->date_expired,
-            'priority'=>$request->priority,
+            'date_adopted' => $request->date_adopted,
+            'date_expired' => $request->date_expired,
+            'priority' => $request->priority,
         ]);
-        
-        return redirect()->back()->with('masuk','Data Berhasil Di Input');
+
+        return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
     }
 
     public function edit($id)
     {
         $map = Map::find($id);
-        return view('map/edit',compact('map'));
+        return view('map/edit', compact('map'));
     }
 
     public function update(Request $request)
@@ -43,25 +43,25 @@ class MapController extends Controller
         $map = Map::find($request->id);
 
         $map->update([
-            'name'=> $request->name,
+            'name' => $request->name,
             'status' => $request->status,
-            'date_adopted'=>$request->date_adopted,
-            'date_expired'=>$request->date_expired,
-            'priority'=>$request->priority,
+            'date_adopted' => $request->date_adopted,
+            'date_expired' => $request->date_expired,
+            'priority' => $request->priority,
         ]);
 
-        return redirect('map')->with('update','Data Berhasil Di Update');
+        return redirect('map')->with('update', 'Data Berhasil Di Update');
     }
 
     public function delete($id)
     {
         $map = Map::find($id);
 
-        if($map->user_id != null){
-            return redirect()->back()->with('gagal','Tidak bisa menghapus map yang sudah di kerjakan oleh karyawan');
+        if ($map->user_id != null) {
+            return redirect()->back()->with('gagal', 'Tidak bisa menghapus map yang sudah di kerjakan oleh karyawan');
         }
 
         $map->delete();
-        return redirect()->back()->with('update','Berhasil Menghapus Data');
+        return redirect()->back()->with('update', 'Berhasil Menghapus Data');
     }
 }

@@ -116,7 +116,7 @@
       <li class="nav-item {{ (request()->is('setting*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('setting.index') }}">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Setting</span></a>
+          <span>Setting Anggaran</span></a>
       </li>
       @endif
       @if(auth()->user()->level != 'U')
@@ -141,6 +141,11 @@
         <a class="nav-link" href="{{url('error-map/create')}}">
           <i class="fas fa-fw fa-cog"></i>
           <span>Error Map</span></a>
+      </li>
+      <li class="nav-item {{ (request()->is('lapor-email*')) ? 'active' : '' }}">
+        <a class="nav-link" href="{{url('lapor-email')}}">
+          <i class="fas fa-fw fa-envelope"></i>
+          <span>Lapor Email</span></a>
       </li>
       <li class="nav-item {{ (request()->is('kehadiran*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('kehadiran.create') }}">

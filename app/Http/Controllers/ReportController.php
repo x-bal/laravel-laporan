@@ -15,6 +15,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Excel;
 use Exports\MapIn;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class ReportController extends Controller
 {
@@ -95,42 +96,48 @@ class ReportController extends Controller
         return Excel::download(new MapProgress($data), 'Map Progress.xlsx');
     }
 
-    public function total()
+    public function total(Request $request)
     {
-        $workMap = WorkMap::orderBy('user_id', 'ASC')->get();
+        $workMap = [];
+
+        if (request('req1') && request('req2')) {
+            $workMap = WorkMap::whereBetween('finish_on', [$request->req1, $request->req2])->orderBy('user_id', 'ASC')->get();
+        }
+
         return view('report/total/index', compact('workMap'));
     }
 
-    public function exportTotal()
+    public function exportTotal(Request $request)
     {
-        $data = WorkMap::orderBy('user_id', 'ASC')->get();
+        $data = [];
+        if (request('req1') && request('req2')) {
+            $data = WorkMap::whereBetween('finish_on', [$request->req1, $request->req2])->get();
+        }
+
+
         return Excel::download(new MapTotal($data), 'Map Total.xlsx');
     }
 
     public function akumulasi()
     {
-        if (request('bulan')) {
-            $bulan = request('bulan');
-            $dateObj   = DateTime::createFromFormat('!m', $bulan);
-            $bln = $dateObj->format('F');
+        if (request('req1') && request('req2')) {
 
-            $gaji = Gaji::whereMonth('created_at', '=', $bulan)->first();
+            $mulai = Carbon::parse(request('req1'))->format('F');
+            $sampai = Carbon::parse(request('req2'))->format('F');
 
             // $users = User::with('karyawan')->get();
-            $akumulasi = User::with('karyawan', 'gaji', 'kehadiran')->whereHas('kehadiran', function ($query) {
-                return $query->where('status', 'Disetujui')->whereMonth('created_at', '=', request('bulan'));
-            })->get();
+            $akumulasi = User::with('karyawan', 'gaji',)->where('level', '!=', 'A')->get();
 
+            $pendapatan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '1')->where('status', 'Disetujui')->whereBetween('tanggal', [request('req1'), request('req2')])->get();
 
-            $pendapatan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '1')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
-
-            $pengurangan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereMonth('tanggal', '=', $bulan)->get();
+            $pengurangan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '1')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '5')->where('status', 'Disetujui')->whereBetween('tanggal', [request('req1'), request('req2')])->get();
 
             $totalPend = 0;
             $totalPeng = 0;
+            $totalGaji = 0;
             $bpjs = Jenis::find(6);
 
-            return view('report.gaji.akumulasi-bulanan', compact('pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'akumulasi', 'bln', 'bpjs'));
+            return view('report.gaji.akumulasi-bulanan', compact('pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'akumulasi', 'bpjs', 'totalGaji', 'mulai', 'sampai'));
         } elseif (request('tahun')) {
             $tahun = request('tahun');
 

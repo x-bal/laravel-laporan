@@ -49,10 +49,15 @@ class BendaharaController extends Controller
             'alamat' => request('alamat'),
         ]);
 
-        $user->gaji()->updateOrCreate([
-            'user_id' => $user->id,
-            'gaji' => 0
-        ]);
+        $user->gaji()->updateOrCreate(
+            [
+                'user_id' => $user->id,
+            ],
+            [
+                'gaji' => 0
+
+            ]
+        );
 
         return redirect()->route('bendahara.index')->with('masuk', 'Data Bendahara berhasil ditambahkan');
     }
@@ -103,10 +108,15 @@ class BendaharaController extends Controller
             'alamat' => request('alamat'),
         ]);
 
-        $bendahara->gaji()->updateOrCreate([
-            'user_id' => $bendahara->user_id,
-            'gaji' => 0
-        ]);
+        $bendahara->gaji()->updateOrCreate(
+            [
+                'user_id' => $bendahara->id,
+            ],
+            [
+                'gaji' => 0
+
+            ]
+        );
 
         return redirect()->route('bendahara.index')->with('masuk', 'Data Bendahara berhasil diupdate');
     }

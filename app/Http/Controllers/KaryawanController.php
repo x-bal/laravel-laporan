@@ -63,6 +63,16 @@ class KaryawanController extends Controller
             'alamat' => request('alamat'),
         ]);
 
+        $user->gaji()->updateOrCreate(
+            [
+                'user_id' => $user->id,
+            ],
+            [
+                'gaji' => 0
+
+            ]
+        );
+
         return redirect()->route('karyawan.index')->with('masuk', 'Data Karyawan berhasil ditambahkan');
     }
 
@@ -114,6 +124,16 @@ class KaryawanController extends Controller
             'pendidikan' => request('pendidikan'),
             'alamat' => request('alamat'),
         ]);
+
+        $user->gaji()->updateOrCreate(
+            [
+                'user_id' => $user->id,
+            ],
+            [
+                'gaji' => 0
+
+            ]
+        );
 
         return redirect()->route('karyawan.index')->with('masuk', 'Data Karyawan berhasil diupdate');
     }

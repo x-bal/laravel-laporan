@@ -8,18 +8,23 @@
     <div class="card-body">
         <div class="table-responsive">
             @if( Session::get('masuk') !="")
-            <div class='alert alert-success'><center><b>{{Session::get('masuk')}}</b></center></div>        
+            <div class='alert alert-success'>
+                <center><b>{{Session::get('masuk')}}</b></center>
+            </div>
             @endif
             @if( Session::get('update') !="")
-            <div class='alert alert-success'><center><b>{{Session::get('update')}}</b></center></div>        
+            <div class='alert alert-success'>
+                <center><b>{{Session::get('update')}}</b></center>
+            </div>
             @endif
             @error('email')
-                <strong style="color:red">{{ $message }}</strong>
+            <strong style="color:red">{{ $message }}</strong>
             @enderror
             <table id="dataTable" class="table table-bordered" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>ID Karyawan</th>
                         <th>Nama</th>
                         <th>Map</th>
                         <th>Tanggal</th>
@@ -32,7 +37,8 @@
                     @foreach ($error as $i => $u)
                     <tr>
                         <td>{{++$i}}</td>
-                        <td>{{$u->workMap->user->name}}</td>
+                        <td>{{$u->workMap->user->karyawan->id_karyawan}}</td>
+                        <td>{{$u->workMap->user->karyawan->nama}}</td>
                         <td>{{$u->workMap->map->name}}</td>
                         <td>{{$u->date}}</td>
                         <td><a href="{{asset('image/'.$u->image)}}" target="_blank">Lihat Gambar</a></td>

@@ -1,4 +1,4 @@
-<table class="table table-bordered"  id="dataTable">
+<table class="table table-bordered" id="dataTable">
     <thead>
         <tr>
             <th>No</th>
@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach ($in as $i => $u)
+        @foreach ($in as $i => $u)
         <tr>
             <td>{{++$i}}</td>
             <td>{{$u->name}}</td>

@@ -36,6 +36,7 @@
                         <th>Date Adopted</th>
                         <th>Date Expired</th>
                         <th>Priority</th>
+                        <th>ID Karyawan</th>
                         <th>Karyawan</th>
                         <th>Aksi</th>
                     </tr>
@@ -50,7 +51,8 @@
                         <td>{{$u->date_adopted}}</td>
                         <td>{{$u->date_expired}}</td>
                         <td>{{$u->priority}}</td>
-                        <td>{{$u->user->name ?? ''}}</td>
+                        <td>{{$u->user->karyawan->id_karyawan ?? ''}}</td>
+                        <td>{{$u->user->karyawan->nama ?? ''}}</td>
                         <td>
                             <a href="{{url('/map/edit/'.$u->id)}}" class="btn btn-primary btn-sm ml-2">Edit</a>
                             <a href="{{url('/map/delete/'.$u->id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin ?')">Delete</a>

@@ -56,10 +56,10 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $gj->user->karyawan->nama }}</td>
                         <td>{{ $gj->user->karyawan->nohp }}</td>
-                        <td>{{ $gj->user->karyawan->divisi }}</td>
+                        <td style="text-align: center;">{{ $gj->user->karyawan->divisi ?? '-' }}</td>
                         <td>{{ $gj->tgl_masuk }}</td>
                         <td>{{ $gj->tgl_bayar }}</td>
-                        <td>{{ $gj->gaji }}</td>
+                        <td>@currency($gj->gaji)</td>
                         <td class="text-center">
                             <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit{{ $gj->id }}"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('gaji.destroy', $gj->id) }}" method="post" style="display: inline;" onclick="return confirm('Hapus data?')">
@@ -84,11 +84,6 @@
                                     <form action="{{ route('gaji.update', $gj->id) }}" method="post">
                                         @method('PATCH')
                                         @csrf
-
-                                        <div class="form-group">
-                                            <label for="nohp">No Hp</label>
-                                            <input type="number" name="nohp" class="form-control" value="{{ $gj->nohp }}">
-                                        </div>
 
                                         <div class="form-group">
                                             <label for="tgl_masuk">Tanggal Masuk</label>

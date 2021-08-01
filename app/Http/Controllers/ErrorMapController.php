@@ -17,14 +17,14 @@ class ErrorMapController extends Controller
 
     public function index()
     {
-        $error=Error::all();
-        return view('error-map/index',compact('error'));
+        $error = Error::all();
+        return view('error-map/index', compact('error'));
     }
 
     public function create()
     {
-        $workmap=Workmap::where('user_id',Auth::user()->id)->where('finish_on',null)->get();
-        return view('error-map/create',compact('workmap'));
+        $workmap = Workmap::where('user_id', Auth::user()->id)->where('finish_on', null)->get();
+        return view('error-map/create', compact('workmap'));
     }
 
     public function store(Request $request)
@@ -35,19 +35,19 @@ class ErrorMapController extends Controller
         $image->move($tujuan_upload_image, $nama_image);
 
         Error::create([
-            'work_map_id'=> $request->work_map_id,
+            'work_map_id' => $request->work_map_id,
             'date' => $request->date,
-            'image'=>$nama_image,
-            'comments'=>$request->comments
+            'image' => $nama_image,
+            'comments' => $request->comments
         ]);
-        
-        return redirect()->back()->with('masuk','Data Berhasil Di Input');
+
+        return redirect()->back()->with('masuk', 'Data Berhasil Di Input');
     }
 
     public function edit($id)
     {
         $error = Error::find($id);
-        return view('error-map/edit',compact('error'));
+        return view('error-map/edit', compact('error'));
     }
 
     public function update(Request $request)
@@ -55,18 +55,17 @@ class ErrorMapController extends Controller
         $error = Error::find($request->id);
 
         $error->update([
-            'comments'=>$request->comments,
+            'comments' => $request->comments,
         ]);
 
-        return redirect('error-map')->with('update','Data Berhasil Di Update');
+        return redirect('error-map')->with('update', 'Data Berhasil Di Update');
     }
-    
+
 
     public function delete($id)
     {
         Error::find($id)->delete();
 
-        return redirect('error-map')->with('update','Data Berhasil Di Hapus');
+        return redirect('error-map')->with('update', 'Data Berhasil Di Hapus');
     }
-    
 }
