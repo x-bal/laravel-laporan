@@ -144,9 +144,7 @@ class ReportController extends Controller
             $gaji = Gaji::whereYear('created_at', '=', $tahun)->first();
 
             // $users = User::with('karyawan')->get();
-            $akumulasi = User::with('karyawan', 'gaji', 'kehadiran')->whereHas('kehadiran', function ($query) {
-                return $query->where('status', 'Disetujui')->whereYear('created_at', '=', request('tahun'));
-            })->get();
+            $akumulasi = User::with('karyawan', 'gaji')->where('level', '!=', 'A')->get();
 
 
             $pendapatan = Kehadiran::with('user', 'jenis')->where('jeni_id', '!=', '2')->where('jeni_id', '!=', '3')->where('jeni_id', '!=', '4')->where('jeni_id', '!=', '1')->where('status', 'Disetujui')->whereYear('tanggal', '=', $tahun)->get();
@@ -155,9 +153,10 @@ class ReportController extends Controller
 
             $totalPend = 0;
             $totalPeng = 0;
+            $totalGaji = 0;
             $bpjs = Jenis::find(6);
 
-            return view('report.gaji.akumulasi-tahunan', compact('pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'akumulasi', 'tahun', 'bpjs'));
+            return view('report.gaji.akumulasi-tahunan', compact('pendapatan', 'pengurangan', 'totalPend', 'totalPeng', 'akumulasi', 'tahun', 'bpjs', 'totalGaji'));
         }
 
         return view('report.gaji.akumulasi');

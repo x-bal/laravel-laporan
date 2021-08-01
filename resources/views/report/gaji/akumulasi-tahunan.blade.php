@@ -24,8 +24,7 @@
                 <td>@currency($akm->gaji->gaji)</td>
             </tr>
             @php
-            $gaji = 0;
-            $gaji += $akm->gaji->gaji
+            $totalGaji += $akm->gaji->gaji
             @endphp
             @endforeach
         </table>
@@ -35,7 +34,7 @@
                 <th width="150mm"> : </th>
                 <th width="300mm"></th>
                 <th width="150mm"></th>
-                <th width="150mm">@currency($gaji * 12)</th>
+                <th width="150mm">@currency($totalGaji * 12)</th>
             </tr>
         </table>
     </div>
@@ -74,7 +73,7 @@
                 <th width="150mm"> : </th>
                 <th width="300mm"></th>
                 <th width="150mm"></th>
-                <th width="150mm">@currency($totalPend * 12)</th>
+                <th width="150mm">@currency($totalPend)</th>
             </tr>
         </table>
     </div>
@@ -114,7 +113,7 @@
                 <th width="150mm"> : </th>
                 <th width="300mm"></th>
                 <th width="150mm"></th>
-                <th width="150mm">@currency($totalPeng * 12)</th>
+                <th width="150mm">@currency($totalPeng)</th>
             </tr>
             @php
             $totalKaryawan = \App\User::with('karyawan')->where('level', '!=', 'A')->count();
@@ -138,7 +137,7 @@
             <th width="150mm"> : </th>
             <th width="300mm"></th>
             <th width="150mm"></th>
-            <th width="150mm">@currency( ($gaji * 12) + ($totalPend * 12) -($bpjs->nominal * 12) - ($totalPeng * 12))</th>
+            <th width="150mm">@currency( ($totalGaji * 12) + $totalPend + ($bpjs->nominal * 12 * $totalKaryawan) - $totalPeng)</th>
         </tr>
     </table>
 </div>
