@@ -14,7 +14,11 @@
                 <th width="300mm">Nama Karyawan</th>
                 <th width="150mm">Jabatan</th>
                 <th width="150mm">Gaji</th>
+                <th width="150mm">BPJS</th>
             </tr>
+            @php
+            $bpjsKaryawan = 0;
+            @endphp
             @foreach($akumulasi as $akm)
             <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -22,19 +26,22 @@
                 <td>{{ $akm->karyawan->nama }}</td>
                 <td>{{ $akm->level == 'U' ? 'Karyawan' : '' }} {{ $akm->level == 'A' ? 'Admin' : '' }} {{ $akm->level == 'B' ? 'Bendahara' : '' }}</td>
                 <td>@currency($akm->gaji->gaji)</td>
+                <td>@currency($bpjs->nominal)</td>
             </tr>
             @php
-            $totalGaji += $akm->gaji->gaji
+            $totalGaji += $akm->gaji->gaji;
+            $bpjsKaryawan += $bpjs->nominal;
             @endphp
             @endforeach
         </table>
         <table style="font-size: 14px; margin-top: 20px; margin-bottom: 20px;" cellspacing="0">
             <tr>
-                <th width="100mm" style="text-align: left;"><b>TOTAL GAJI</b></th>
+                <th width="150mm" style="text-align: left;"><b>TOTAL GAJI</b></th>
                 <th width="150mm"> : </th>
                 <th width="300mm"></th>
                 <th width="150mm"></th>
-                <th width="150mm">@currency($totalGaji)</th>
+                <th width="100mm"></th>
+                <th width="150mm">@currency($totalGaji - $bpjsKaryawan)</th>
             </tr>
         </table>
     </div>
@@ -136,7 +143,7 @@
             <th width="150mm"> : </th>
             <th width="300mm"></th>
             <th width="150mm"></th>
-            <th width="150mm">@currency(($totalGaji + $totalPend) - ($totalPeng + $totalBpjs))</th>
+            <th width="150mm">@currency($totalGaji - $bpjsKaryawan + $totalPend + $totalBpjs - $totalPeng)</th>
         </tr>
     </table>
 </div>
