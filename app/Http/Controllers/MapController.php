@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Map;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MapController extends Controller
@@ -21,6 +22,10 @@ class MapController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'id_map' => 'unique:maps'
+        ]);
+
         Map::create([
             'id_map' => $request->id_map,
             'name' => $request->name,
@@ -41,6 +46,10 @@ class MapController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'id_map' => 'unique:maps,id_map,' . $request->id,
+        ]);
+
         $map = Map::find($request->id);
 
         $map->update([

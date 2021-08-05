@@ -49,8 +49,6 @@
                             <option value="{{ $jns->id }}">{{ $jns->name }}</option>
                             @endforeach
                         </select>
-
-                        <small>*Sisa cuti anda {{ $sisa }} kali.</small>
                     </div>
 
                     <div class="form-group">

@@ -14,10 +14,10 @@ class MapFinish implements FromView
         $this->data = $data;
     }
 
-    public function view():View
+    public function view(): View
     {
-        return view('report/finish/table',[
-           'workMap'=>$this->data
+        return view('report/finish/table', [
+            'workMap' => $this->data
         ]);
     }
 }

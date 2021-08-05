@@ -12,6 +12,10 @@
             <div class="form-group">
                 <label for="id_map">ID Map</label>
                 <input type="text" name="id_map" class="form-control" value="{{$map->id_map}}" required>
+
+                @error('id_map')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="name">Nama</label>

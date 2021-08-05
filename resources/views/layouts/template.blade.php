@@ -39,10 +39,10 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/home">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-book"></i>
+        <div class="sidebar-brand-icon">
+          <img src="{{ asset('image/logo1.png') }}" alt="" width="50px">
         </div>
-        <div class="sidebar-brand-text mx-3">Aplikasi Laporan Kerja</div>
+        <div class="sidebar-brand-text mx-3" style="font-size: 12px;">CV Peninsula Abadi</div>
       </a>
 
       <!-- Divider -->
@@ -62,40 +62,34 @@
         Interface
       </div>
       @if(Auth::user()->level == 'A')
-      <li class="nav-item {{ (request()->is('admin*')) ? 'active' : '' }}">
-        <a class="nav-link" href="{{url('admin')}}">
-          <i class="fas fa-fw fa-user"></i>
-          <span>Data Admin</span></a>
-      </li>
-      <li class="nav-item {{ (request()->is('karyawan*')) ? 'active' : '' }}">
-        <a class="nav-link" href="{{url('karyawan')}}">
-          <i class="fas fa-fw fa-user-shield"></i>
-          <span>Data karyawan</span></a>
-      </li>
-      <li class="nav-item {{ (request()->is('bendahara*')) ? 'active' : '' }}">
-        <a class="nav-link" href="{{url('bendahara')}}">
-          <i class="fas fa-fw fa-user-shield"></i>
-          <span>Data Bendahara</span></a>
-      </li>
-      <li class="nav-item {{ (request()->is('user*')) ? 'active' : '' }}">
-        <a class="nav-link" href="{{url('user')}}">
+      <li class="nav-item {{ request()->is('admin*') ? 'active' : '' }} {{ request()->is('user*') ? 'active' : '' }} {{ request()->is('karyawan*') ? 'active' : '' }} {{ request()->is('bendahara*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#master" aria-expanded="false" aria-controls="master">
           <i class="fas fa-fw fa-users"></i>
-          <span>Data User</span></a>
+          <span>Master Data</span>
+        </a>
+        <div id="master" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar" style="">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Master Data</h6>
+            <a class="collapse-item" href="{{url('admin')}}">Data Admin</a>
+            <a class="collapse-item" href="{{url('user')}}">Data User</a>
+            <a class="collapse-item" href="{{url('karyawan')}}">Data Karyawan</a>
+            <a class="collapse-item" href="{{url('bendahara')}}">Data Bendahara</a>
+          </div>
+        </div>
       </li>
-      <li class="nav-item {{ (request()->is('map*')) ? 'active' : '' }}">
-        <a class="nav-link" href="{{url('map')}}">
-          <i class="fas fa-fw fa-map"></i>
-          <span>Data Map</span></a>
-      </li>
-      <li class="nav-item {{ (request()->is('finish-map*')) ? 'active' : '' }}">
-        <a class="nav-link" href="{{url('finish-map')}}">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Data Map Selesai</span></a>
-      </li>
-      <li class="nav-item {{ (request()->is('error-map*')) ? 'active' : '' }}">
-        <a class="nav-link" href="{{url('error-map')}}">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Error Map</span></a>
+      <li class="nav-item {{ request()->is('map*') ? 'active' : '' }} {{ request()->is('finish-map*') ? 'active' : '' }} {{ request()->is('error-map*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#map" aria-expanded="false" aria-controls="map">
+          <i class="far fa-fw fa-folder"></i>
+          <span>Map</span>
+        </a>
+        <div id="map" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar" style="">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Map</h6>
+            <a class="collapse-item" href="{{url('map')}}">Data Map</a>
+            <a class="collapse-item" href="{{url('finish-map')}}">Data Map Selesai</a>
+            <a class="collapse-item" href="{{url('error-map')}}">Data Map</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item {{ (request()->is('kehadiran*')) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap" aria-expanded="false" aria-controls="collapseBootstrap">
@@ -122,24 +116,25 @@
       @if(auth()->user()->level != 'U')
       <li class="nav-item {{ (request()->is('gaji*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('gaji.index') }}">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-chart-line"></i>
           <span>Kelola Gaji Karyawan</span></a>
       </li>
       <li class="nav-item {{ (request()->is('report*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('report')}}">
-          <i class="fas fa-fw fa-building"></i>
+          <i class="fas fa-fw fa-file"></i>
           <span>Laporan</span></a>
       </li>
       @endif
       @if(auth()->user()->level == 'U')
+      @if(auth()->user()->karyawan->divisi == 'Mapping')
       <li class="nav-item {{ (request()->is('work-map*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('work-map')}}">
-          <i class="fas fa-fw fa-user"></i>
+          <i class="fas fa-fw fa-folder"></i>
           <span>Work Maps</span></a>
       </li>
       <li class="nav-item {{ (request()->is('error-map*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('error-map/create')}}">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-exclamation-circle"></i>
           <span>Error Map</span></a>
       </li>
       <li class="nav-item {{ (request()->is('lapor-email*')) ? 'active' : '' }}">
@@ -147,23 +142,23 @@
           <i class="fas fa-fw fa-envelope"></i>
           <span>Lapor Email</span></a>
       </li>
+      @endif
       <li class="nav-item {{ (request()->is('kehadiran*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('kehadiran.create') }}">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-calendar"></i>
           <span>Kehadiran</span></a>
       </li>
       <li class="nav-item {{ (request()->is('lembur*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('lembur') }}">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-briefcase"></i>
           <span>Lembur</span></a>
       </li>
       <li class="nav-item {{ (request()->is('gaji*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('gaji.slip') }}">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-chart-line"></i>
           <span>Slip Gaji</span></a>
       </li>
       @endif
-
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

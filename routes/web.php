@@ -109,6 +109,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/accept/{kehadiran:id}', 'KehadiranController@accept')->name('accept');
     Route::get('/reject/{kehadiran:id}', 'KehadiranController@reject')->name('reject');
     Route::get('/lembur', 'KehadiranController@lembur')->name('lembur');
+    Route::get('/cuti/{id}', 'KehadiranController@cuti')->name('cuti');
     Route::resource('/kehadiran', 'KehadiranController');
 
     // Route Setting

@@ -22,6 +22,11 @@
                 <center><b>{{Session::get('gagal')}}</b></center>
             </div>
             @endif
+            @error('id_map')
+            <div class='alert alert-danger'>
+                <center><b>{{ $message }}</b></center>
+            </div>
+            @enderror
             <br>
             <button class="btn btn-success" data-toggle="modal" data-target="#tambah">Tambah Data</button>
             <br>

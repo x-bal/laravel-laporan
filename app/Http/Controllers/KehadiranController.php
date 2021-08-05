@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jenis;
+use App\Karyawan;
 use App\Kehadiran;
 use App\User;
 use Carbon\Carbon;
@@ -12,6 +13,9 @@ class KehadiranController extends Controller
 {
     public function index()
     {
+        // Setting Limit
+        $limit = 12;
+
         $users = User::get();
         $jeniss = Jenis::get();
         if (request('jenis')) {
@@ -25,22 +29,19 @@ class KehadiranController extends Controller
         } else {
             $kehadiran = null;
         }
-        return view('kehadiran.index', compact('kehadiran', 'jenis', 'users', 'accept', 'reject', 'jeniss'));
+        return view('kehadiran.index', compact('kehadiran', 'jenis', 'users', 'accept', 'reject', 'jeniss', 'limit'));
     }
 
     public function create()
     {
-        $totalCuti = Kehadiran::where('jeni_id', 4)->where('user_id', auth()->user()->id)->count();
-        $limit = 4;
-        $sisa = $limit - $totalCuti;
+        $totalCuti = Kehadiran::where('jeni_id', 4)->where('user_id', auth()->user()->id)->where('status', 'Disetujui')->count();
+        // Setting Limit
+        $limit = 12;
 
-        if ($totalCuti >= $limit) {
-            $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->where('name', '!=', 'Cuti')->get();
-        } else {
-            $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->get();
-        }
+        $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->get();
 
-        return view('kehadiran.create', compact('jenis', 'sisa'));
+
+        return view('kehadiran.create', compact('jenis'));
     }
 
     public function store(Request $request)
@@ -135,5 +136,28 @@ class KehadiranController extends Controller
         ]);
 
         return redirect()->back()->with('masuk', 'Kehadiran berhasil ditolak');
+    }
+
+    public function cuti($id)
+    {
+        $karyawan = Karyawan::where('user_id', $id)->first();
+        $cuti = [];
+
+        // Setting Limit
+        $limit = 12;
+
+        if (request('tahun')) {
+            $where = [
+                'user_id' => $id,
+                'jeni_id' => 4,
+                'status' => 'Disetujui'
+            ];
+
+            $cuti = Kehadiran::with('user')->where($where)->whereYear('created_at', request('tahun'))->latest()->get();
+
+            return view('kehadiran.cuti', compact('karyawan', 'cuti', 'limit'));
+        }
+
+        return view('kehadiran.cuti', compact('karyawan', 'cuti', 'limit'));
     }
 }

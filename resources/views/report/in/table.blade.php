@@ -14,6 +14,7 @@
         @foreach ($in as $i => $u)
         <tr>
             <td>{{++$i}}</td>
+            <td>{{$u->id_map}}</td>
             <td>{{$u->name}}</td>
             <td>{{$u->status}}</td>
             <td>{{$u->date_adopted}}</td>

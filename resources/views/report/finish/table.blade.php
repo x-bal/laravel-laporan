@@ -15,6 +15,7 @@
         @foreach ($workMap as $i => $u)
         <tr>
             <td>{{++$i}}</td>
+            <td>{{$u->map->id_map}}</td>
             <td>{{$u->user->karyawan->id_karyawan}}</td>
             <td>{{$u->user->karyawan->nama}}</td>
             <td>{{$u->map->name}}</td>

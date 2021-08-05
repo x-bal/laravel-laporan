@@ -36,9 +36,11 @@
                         <th>No</th>
                         <th>ID Karyawan</th>
                         <th>Nama</th>
-                        <th>Dari</th>
-                        <th>Sampai</th>
+                        <th>Waktu</th>
                         <th>Keterangan</th>
+                        @if(request('jenis') == 4)
+                        <th>Total Hari</th>
+                        @endif
                         <th>Status</th>
                         <th class="text-center">Konfirmasi</th>
                         @endif
@@ -56,11 +58,23 @@
                         <td>{{ $hadir->status }}</td>
                         @else
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $hadir->user->karyawan->id_karyawan }}</td>
+                        <td>
+                            @if(request('jenis') == 4)
+                            <a href="{{ route('cuti', $hadir->user->id) }}">{{ $hadir->user->karyawan->id_karyawan }}</a>
+                            @else
+                            {{ $hadir->user->karyawan->id_karyawan }}
+                            @endif
+                        </td>
                         <td>{{ $hadir->user->karyawan->nama }}</td>
-                        <td>{{ $hadir->dari }}</td>
-                        <td>{{ $hadir->sampai }}</td>
+                        <td>{{ $hadir->dari }} s.d {{ $hadir->sampai }}</td>
                         <td>{{ $hadir->keterangan }}</td>
+                        @if(request('jenis') == 4)
+                        @php
+                        $dari = \Carbon\Carbon::createFromFormat('Y-m-d', $hadir->dari);
+                        $sampai = \Carbon\Carbon::createFromFormat('Y-m-d', $hadir->sampai)
+                        @endphp
+                        <td>{{ $sampai->diffInDays($dari) }} Hari</td>
+                        @endif
                         <td>{{ $hadir->status }}</td>
                         @endif
                         <td class="text-center">
@@ -101,9 +115,11 @@
                         <th>No</th>
                         <th>ID Karyawan</th>
                         <th>Nama</th>
-                        <th>Dari</th>
-                        <th>Sampai</th>
+                        <th>Waktu</th>
                         <th>Keterangan</th>
+                        @if(request('jenis') == 4)
+                        <th>Total Hari</th>
+                        @endif
                         <th>Status</th>
                         <th class="text-center">Aksi</th>
                         @endif
@@ -121,11 +137,23 @@
                         <td>{{ $acc->status }}</td>
                         @else
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $acc->user->karyawan->id_karyawan }}</td>
+                        <td>
+                            @if(request('jenis') == 4)
+                            <a href="{{ route('cuti', $acc->user->id) }}">{{ $acc->user->karyawan->id_karyawan }}</a>
+                            @else
+                            {{ $acc->user->karyawan->id_karyawan }}
+                            @endif
+                        </td>
                         <td>{{ $acc->user->karyawan->nama }}</td>
-                        <td>{{ $acc->dari }}</td>
-                        <td>{{ $acc->sampai }}</td>
+                        <td>{{ $acc->dari }} s.d {{ $acc->sampai }}</td>
                         <td>{{ $acc->keterangan }}</td>
+                        @if(request('jenis') == 4)
+                        @php
+                        $dari = \Carbon\Carbon::createFromFormat('Y-m-d', $acc->dari);
+                        $sampai = \Carbon\Carbon::createFromFormat('Y-m-d', $acc->sampai)
+                        @endphp
+                        <td>{{ $sampai->diffInDays($dari) }} Hari</td>
+                        @endif
                         <td>{{ $acc->status }}</td>
                         @endif
                         <td class="text-center">
@@ -165,9 +193,11 @@
                         <th>No</th>
                         <th>ID Karyawan</th>
                         <th>Nama</th>
-                        <th>Dari</th>
-                        <th>Sampai</th>
+                        <th>Waktu</th>
                         <th>Keterangan</th>
+                        @if(request('jenis') == 4)
+                        <th>Total Hari</th>
+                        @endif
                         <th>Status</th>
                         <th class="text-center">Aksi</th>
                         @endif
@@ -185,11 +215,23 @@
                         <td>{{ $rjc->status }}</td>
                         @else
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $rjc->user->karyawan->id_karyawan }}</td>
+                        <td>
+                            @if(request('jenis') == 4)
+                            <a href="{{ route('cuti', $rjc->user->id) }}">{{ $rjc->user->karyawan->id_karyawan }}</a>
+                            @else
+                            {{ $rjc->user->karyawan->id_karyawan }}
+                            @endif
+                        </td>
                         <td>{{ $rjc->user->karyawan->nama }}</td>
-                        <td>{{ $rjc->dari }}</td>
-                        <td>{{ $rjc->sampai }}</td>
+                        <td>{{ $rjc->dari }} s.d {{ $rjc->sampai }}</td>
                         <td>{{ $rjc->keterangan }}</td>
+                        @if(request('jenis') == 4)
+                        @php
+                        $dari = \Carbon\Carbon::createFromFormat('Y-m-d', $rjc->dari);
+                        $sampai = \Carbon\Carbon::createFromFormat('Y-m-d', $rjc->sampai)
+                        @endphp
+                        <td>{{ $sampai->diffInDays($dari) }} Hari</td>
+                        @endif
                         <td>{{ $rjc->status }}</td>
                         @endif
                         <td class="text-center">
