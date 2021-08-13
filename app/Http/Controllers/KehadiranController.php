@@ -38,10 +38,20 @@ class KehadiranController extends Controller
         // Setting Limit
         $limit = 12;
 
-        $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->get();
+        $now = Carbon::now();
+        $start = Carbon::parse("07:00:00")->format("Y-m-d H:i:s");
+        $end = Carbon::parse("21:00:00")->format("Y-m-d H:i:s");
+
+        $where = [
+            'user_id' => auth()->user()->id,
+        ];
+
+        $hadir = Kehadiran::where($where)->whereDate('created_at', date('Y-m-d'))->first();
+
+        $jenis = Jenis::where('id', '!=', 1)->where('name', '!=', 'Lembur')->where('name', '!=', 'BPJS')->where('name', '!=', 'Izin Setengah Hari')->where('name', '!=', 'Tidak Hadir')->get();
 
 
-        return view('kehadiran.create', compact('jenis'));
+        return view('kehadiran.create', compact('jenis', 'hadir', 'start', 'end', 'now'));
     }
 
     public function store(Request $request)

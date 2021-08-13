@@ -89,7 +89,7 @@ class UserController extends Controller
     public function index2()
     {
 
-        $users = User::with('karyawan')->where('level', 'U')->get();
+        $users = User::with('karyawan')->where('level', '!=', 'A')->get();
         return view('user/index', compact('users'));
     }
 

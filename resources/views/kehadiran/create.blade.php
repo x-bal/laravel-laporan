@@ -9,23 +9,40 @@
                     <h6 class="m-0 font-weight-bold text-primary">Kehadiran</h6>
                 </div>
                 <div class="card-body">
-                    @if( Session::get('masuk') !="")
-                    <div class='alert alert-success'>
-                        <center><b>{{Session::get('masuk')}}</b></center>
-                    </div>
-                    @endif
+                    @if($hadir == null)
+                    @if($now <= $end && $now>= $start)
+                        @if( Session::get('masuk') !="")
+                        <div class='alert alert-success'>
+                            <center><b>{{Session::get('masuk')}}</b></center>
+                        </div>
+                        @endif
 
-                    <form action="{{ route('kehadiran.store') }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-primary" onclick="return confirm('Lakukan Absensi ?')">Absensi</button>
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#izinSet">Izin Setengah Hari</button>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#izin">Izin</button>
-                    </form>
-
+                        <form action="{{ route('kehadiran.store') }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-primary" onclick="return confirm('Lakukan Absensi ?')">Absensi</button>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#izinSet">Izin Setengah Hari</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#izin">Izin</button>
+                        </form>
+                        @else
+                        @php
+                        \App\Kehadiran::create([
+                        'user_id' => auth()->user()->id,
+                        'jeni_id' => 7,
+                        'tanggal' => date('Y-m-d'),
+                        'status' => 'disetujui',
+                        'keterangan' => 'Tidak Hadir'
+                        ])
+                        @endphp
+                        <span class="text-danger">Waktu absensi sudah terlewat.</span>
+                        @endif
+                        @else
+                        <span class="text-danger">Anda sudah melakukan absensi.</span>
+                        @endif
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <div id="izin" class="modal fade" tabindex="-1" role="dialog">

@@ -113,7 +113,7 @@
             @endforeach
         </table>
 
-        <table style="font-size: 14px; margin-top: 50px; margin-bottom: 20px;" cellspacing="0">
+        <table style="font-size: 14px; margin-top:20px; margin-bottom: 20px;" cellspacing="0">
             <tr>
                 <th width="200mm" style="text-align: left;"><b>TOTAL PENGURANGAN</b></th>
                 <th width="150mm"> : </th>

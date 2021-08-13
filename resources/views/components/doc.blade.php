@@ -29,7 +29,7 @@
         }
 
         .sheet {
-            overflow: hidden;
+            overflow: -moz-hidden-unscrollable;
             position: relative;
             display: block;
             margin: 0 auto;
@@ -50,7 +50,7 @@
 
         body.A4 .sheet {
             width: 210mm;
-            height: 296mm
+            /* height: 296mm */
         }
 
         body.A4.landscape .sheet {
@@ -140,6 +140,10 @@
         <hr>
         @yield('body')
     </section>
+
+    <script>
+        window.load(print())
+    </script>
 </body>
 
 

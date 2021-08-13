@@ -126,7 +126,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/gaji/laporan/karyawan/{tanggal}', 'GajiController@laporanKaryawan')->name('gaji.laporanKaryawan');
     Route::get('/gaji/generate/{tanggal}', 'GajiController@generate')->name('gaji.generate');
     Route::get('/gaji/generate/{id}/{bulan}', 'GajiController@generateAdmin')->name('gaji.generate.admin');
-    Route::get('/gaji/slip', 'GajiController@slip')->name('gaji.slip');
+    Route::get('/slip/gaji', 'GajiController@slip')->name('gaji.slip');
     Route::resource('/gaji', 'GajiController');
 
     Route::get('change-password', 'ChangePasswordController@index');

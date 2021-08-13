@@ -87,7 +87,7 @@
             <h6 class="collapse-header">Map</h6>
             <a class="collapse-item" href="{{url('map')}}">Data Map</a>
             <a class="collapse-item" href="{{url('finish-map')}}">Data Map Selesai</a>
-            <a class="collapse-item" href="{{url('error-map')}}">Data Map</a>
+            <a class="collapse-item" href="{{url('error-map')}}">Data Error Map</a>
           </div>
         </div>
       </li>
@@ -104,6 +104,7 @@
             <a class="collapse-item" href="/kehadiran?jenis=3">Izin</a>
             <a class="collapse-item" href="/kehadiran?jenis=4">Cuti</a>
             <a class="collapse-item" href="/kehadiran?jenis=5">Lembur</a>
+            <a class="collapse-item" href="/kehadiran?jenis=7">Tidak Hadir</a>
           </div>
         </div>
       </li>
@@ -125,7 +126,7 @@
           <span>Laporan</span></a>
       </li>
       @endif
-      @if(auth()->user()->level == 'U')
+      @if(auth()->user()->level != 'A')
       @if(auth()->user()->karyawan->divisi == 'Mapping')
       <li class="nav-item {{ (request()->is('work-map*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{url('work-map')}}">
@@ -153,7 +154,7 @@
           <i class="fas fa-fw fa-briefcase"></i>
           <span>Lembur</span></a>
       </li>
-      <li class="nav-item {{ (request()->is('gaji*')) ? 'active' : '' }}">
+      <li class="nav-item {{ (request()->is('slip*')) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('gaji.slip') }}">
           <i class="fas fa-fw fa-chart-line"></i>
           <span>Slip Gaji</span></a>
